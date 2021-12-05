@@ -1,0 +1,94 @@
+[
+    {
+        "_id" : 301,
+        "Hobbies" : "Writing"
+    },
+    {
+        "_id" : 302,
+        "Hobbies" : "Cooking"
+    },
+    {
+        "_id" : 303,
+        "Hobbies" : "photography"
+    },
+    {
+        "_id" : 304,
+        "Hobbies" : "Drawing"
+    },
+    {
+        "_id" : 305,
+        "Hobbies" : "Dance"
+    },
+    {
+        "_id" : 306,
+        "Hobbies" : "Hiking"
+    },
+    {
+        "_id" : 307,
+        "Hobbies" : "Summer Sports"
+    },
+    {
+        "_id" : 308,
+        "Hobbies" : "Painting, Art, graffiti"
+    },
+    {
+        "_id" : 309,
+        "Hobbies" : "Video games"
+    },
+    {
+        "_id" : 3010,
+        "Hobbies" : "board games"
+    },
+    {
+        "_id" : 3011,
+        "Hobbies" : "DIY"
+    },
+    {
+        "_id" : 3012,
+        "Hobbies" : "Camping"
+    },
+    {
+        "_id" : 3013,
+        "Hobbies" : "Music"
+    },
+    {
+        "_id" : 3014,
+        "Hobbies" : "Meditation"
+    },
+    {
+        "_id" : 3015,
+        "Hobbies" : "Learning languages"
+    },
+    {
+        "_id" : 3016,
+        "Hobbies" : "AudioBooks adn Podcasts"
+    },
+    {
+        "_id" : 3017,
+        "Hobbies" : "Context Creation"
+    },
+    {
+        "_id" : 3018,
+        "Hobbies" : "Reading"
+    },
+    {
+        "_id" : 3019,
+        "Hobbies" : "Collector"
+    },
+    {
+        "_id" : 3020,
+        "Hobbies" : "Fishing"
+    },
+    {
+        "_id" : 3021,
+        "Hobbies" : "Beauty"
+    },
+    {
+        "_id" : 3022,
+        "Hobbies" : "Winter Sport"
+    },
+    {
+        "_id" : 3022,
+        "Hobbies" : "Parties and Bars"
+    }
+]

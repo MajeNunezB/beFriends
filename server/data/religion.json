@@ -1,0 +1,27 @@
+[
+    {
+        "_id" : 501,
+        "religion" : "Christianity"
+    },
+    {
+        "_id" : 502,
+        "religion" : "Sikh"
+    },
+    {
+        "_id" : 503,
+        "religion" : "Jewish"
+    },
+    {
+        "_id" : 504,
+        "religion" : "Buddhist"
+    },
+    {
+        "_id" : 505,
+        "religion" : "Hindu"
+    },
+    {
+        "_id" : 506,
+        "religion" : "No religious affiliation"
+    }
+    
+]

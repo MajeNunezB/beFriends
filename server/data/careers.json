@@ -1,0 +1,67 @@
+[
+    {
+        "_id" : 201,
+        "Careers" : "Agriculture, Food and Natural Resources"
+    },
+    {
+        "_id" : 202,
+        "Careers" : "Education and Training"
+    },
+    {
+        "_id" : 203,
+        "Careers" : "Business owner, entrepreneur"
+    },
+    {
+        "_id" : 204,
+        "Careers" : "Arts, Audio/Video Technology and Communications"
+    },
+    {
+        "_id" : 205,
+        "Careers" : "Government and Public Administration"
+    },
+    {
+        "_id" : 206,
+        "Careers" : "Hospitality and Tourism Careers"
+    },
+    {
+        "_id" : 207,
+        "Careers" : "Information Technology"
+    },
+    {
+        "_id" : 208,
+        "Careers" : "Manufacturing"
+    },
+    {
+        "_id" : 209,
+        "Careers" : "Science, Technology, Engineering and Mathematics"
+    },
+    {
+        "_id" : 2010,
+        "Careers" : "Architecture and Construction"
+    },
+    {
+        "_id" : 2011,
+        "Careers" : "Business Management and Administration"
+    },
+    {
+        "_id" : 2012,
+        "Careers" : "Finance"
+    },
+    {
+        "_id" : 2013,
+        "Careers" : "Health Science"
+    },
+    {
+        "_id" : 2014,
+        "Careers" : "Law, Public Safety, Corrections and Security"
+    },
+    {
+        "_id" : 2015,
+        "Careers" : "Marketing, Sales and Service"
+    },
+    {
+        "_id" : 2016,
+        "Careers" : "Transportation, Distribution and Logistics"
+    }
+    
+]

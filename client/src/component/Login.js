@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import LogoutButton from "./LogoutButton";
+import LoginButton from "./LoginButton";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,27 +15,33 @@ const Login = () => {
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-        <Title>Login</Title>
-        <Label>
-          <span>Email:</span>
-          <Input
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-        </Label>
-        <Label>
-          <span>Password:</span>
-          <Input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-        </Label>
-        <Button>Login</Button>
-      </Form>
-      <Background src="/picture/fondo.jpg" />
+      <Background>
+        <Form onSubmit={handleSubmit}>
+          <Title>Login</Title>
+          <Label>
+            <span>Email:</span>
+            <Input
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+            />
+          </Label>
+          <Label>
+            <span>Password:</span>
+            <Input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+            />
+          </Label>
+
+          <Button>
+            <LoginButton />
+          </Button>
+        </Form>
+      </Background>
     </div>
   );
 };
@@ -46,6 +54,7 @@ const Form = styled.form`
   max-width: 360px;
   margin: 60px auto;
   padding: 20px;
+  z-index: 1;
 `;
 
 const Input = styled.input`
@@ -53,17 +62,28 @@ const Input = styled.input`
   font-size: 1em;
   width: 100%;
   color: #be95c4;
+  z-index: 1;
 `;
 
 const Label = styled.label`
   display: block;
   margin-bottom: 6px;
+  z-index: 1;
+`;
+
+const Background = styled.div`
+  margin: 0px;
+  background-image: url("/picture/fondo.jpg");
+  min-height: 100vh;
+  background-size: cover;
+  margin-top: -65px;
+  position: relative;
 `;
 
 const Button = styled.button`
-  background: none;
-  border: 2px solid #be95c4;
-  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  padding: 7px 12px;
   border-radius: 4px;
   color: #be95c4;
   font-weight: bold;
@@ -75,15 +95,6 @@ const Button = styled.button`
     background: #be95c4;
     color: white;
   }
-`;
-
-const Background = styled.img`
-  object-fit: cover;
-  width: 100vw;
-  max-height: 100vw;
-  margin-top: -380px;
-  position: absolute;
-  opacity: 0.3;
 `;
 
 export default Login;

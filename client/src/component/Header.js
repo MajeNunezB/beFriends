@@ -1,14 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <div>
       <Wrapper>
-        <Title>BeFriends</Title>
-        <Header1 to={"/login"}>Login</Header1>
-        <Header1 to={"/signup"}>Signup</Header1>
+        <Title to="/">BeFriends</Title>
+        <div>
+          <Header1 to="/Login">Login</Header1>
+          <Header1 to={"/signup"}>Signup</Header1>
+        </div>
       </Wrapper>
     </div>
   );
@@ -20,17 +24,11 @@ const Header1 = styled(Link)`
   color: white;
 `;
 
-const Title = styled.h1`
-  margin-right: auto;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-size: 1.2em;
-  padding: 10px;
+const Title = styled(Link)`
+  text-decoration: none;
+  color: white;
+  margin-left: 10px;
 `;
-
-// const Div = styled.div`
-//   margin-left: 16px;
-// `;
 
 const Wrapper = styled.div`
   display: flex;
@@ -39,6 +37,9 @@ const Wrapper = styled.div`
   align-items: center;
   color: white;
   background-color: #be95c4;
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
 `;
 
 export default Header;

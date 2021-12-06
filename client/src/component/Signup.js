@@ -22,6 +22,7 @@ const Signup = () => {
             type="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            required
           />
         </Label>
         <Label>
@@ -30,6 +31,7 @@ const Signup = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
+            required
           />
         </Label>
         <Label>
@@ -38,6 +40,7 @@ const Signup = () => {
             type="text"
             onChange={(e) => setGivenName(e.target.value)}
             value={givenName}
+            required
           />
         </Label>
         <Button>Signup</Button>
@@ -49,11 +52,13 @@ const Signup = () => {
 const Title = styled.h1`
   margin-bottom: 20px;
 `;
+
 const Form = styled.form`
   max-width: 360px;
   margin: 60px auto;
   padding: 20px;
 `;
+
 const Label = styled.label`
   display: block;
   margin: 30px auto;
@@ -83,8 +88,9 @@ const Button = styled.button`
   font-style: "Poppins", sans-serif;
 
   &:hover {
-    background: #be95c4;
+    background: #be95c4 !important;
     color: white;
+    box-shadow: 0 30px 45px -15px rgba(255, 16, 39, 0.57);
   }
 `;
 

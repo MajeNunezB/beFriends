@@ -50,8 +50,10 @@ export default createGlobalStyle`
       font-family: var(--heading-font-family);
     }
 
-    Link{
+    a {
         text-decoration:none;
     }
+
+    
 
 `;

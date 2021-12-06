@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import { Link } from "react-router-dom";
+import Login from "./Login";
 
 const Header = () => {
   return (
@@ -17,17 +18,21 @@ const Header = () => {
     </div>
   );
 };
+
 const Header1 = styled(Link)`
   padding: 20px 10px;
   margin-left: 16px;
   text-decoration-line: none;
   color: white;
+  opacity: 0.7;
+  padding: 30px;
 `;
 
 const Title = styled(Link)`
   text-decoration: none;
   color: white;
   margin-left: 10px;
+  padding: 30px;
 `;
 
 const Wrapper = styled.div`

@@ -16,85 +16,142 @@ const Login = () => {
   return (
     <div>
       <Background>
-        <Form onSubmit={handleSubmit}>
-          <Title>Login</Title>
-          <Label>
-            <span>Email:</span>
-            <Input
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-            />
-          </Label>
-          <Label>
-            <span>Password:</span>
-            <Input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-            />
-          </Label>
-
-          <Button>
-            <LoginButton />
-          </Button>
-        </Form>
+        <Wrapper>
+          <form onSubmit={handleSubmit}>
+            <Title>Login</Title>
+            <Div>
+              <Label>
+                <span>Email:</span>
+                <Input
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                  required
+                />
+              </Label>
+            </Div>
+            <Div2>
+              <Label>
+                <span>Password:</span>
+                <Input
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
+                  required
+                />
+              </Label>
+            </Div2>
+            <Button>
+              <LoginButton />
+            </Button>
+          </form>
+        </Wrapper>
       </Background>
     </div>
   );
 };
 
 const Title = styled.h1`
-  margin-bottom: 20px;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 23px;
+  margin: -50px 0 80px 0;
+  display: block;
+  text-align: center;
 `;
 
-const Form = styled.form`
-  max-width: 360px;
-  margin: 60px auto;
-  padding: 20px;
-  z-index: 1;
+const Wrapper = styled.div`
+  position: absolute;
+  left: 52%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* background-color: rgba(0, 0, 0, 0.89); */
+  border-radius: 3px;
+  padding: 70px 100px;
+  background-color: rgb(1, 1, 1);
+  width: 400px;
+`;
+
+const Div = styled.div`
+  position: relative;
+  margin-bottom: 25px;
+  border: 0;
+  border-bottom: 1px solid #555;
+  background: transparent;
+  margin-top: 10px !important;
+  width: 100%;
+  padding: 8px 0px 5px 0;
+  font-size: 16px;
+  color: #fff;
+
+  :focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #e74c3c;
+  }
+`;
+
+const Div2 = styled.div`
+  position: relative;
+  margin-bottom: 25px;
+  top: 10px;
+  border-bottom: 1px solid #555;
+  border: 0;
+  border-bottom: 1px solid #555;
+  background: transparent;
+  width: 100%;
+  padding: 8px 0px 5px 0;
+  font-size: 16px;
+  color: #fff;
+
+  :focus {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #e74c3c;
+  }
 `;
 
 const Input = styled.input`
-  padding: 8px 6px;
-  font-size: 1em;
-  width: 100%;
-  color: #be95c4;
-  z-index: 1;
+  margin-left: -10px;
 `;
 
 const Label = styled.label`
-  display: block;
-  margin-bottom: 6px;
-  z-index: 1;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 16px;
+  color: #fff;
+  transition: all 0.5s ease-in-out;
+  :focus,
+  :valid {
+    top: -12px;
+    font-size: 12px;
+  }
 `;
 
 const Background = styled.div`
   margin: 0px;
-  background-image: url("/picture/fondo.jpg");
+  background-image: url("/picture/login2.jpg");
   min-height: 100vh;
   background-size: cover;
-  margin-top: -65px;
+  /* margin-top: -65px; */
   position: relative;
+  opacity: 0.9;
 `;
 
 const Button = styled.button`
-  background: transparent;
-  border: none;
-  padding: 7px 12px;
-  border-radius: 4px;
-  color: #be95c4;
-  font-weight: bold;
+  color: #fff;
+  /* background-color: #be95c4; */
+  outline: none;
+  border: 0;
+  color: #fff;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  margin-top: 50px;
+  border-radius: 2px;
   cursor: pointer;
-  font-size: 1em;
-  font-style: "Poppins", sans-serif;
-
-  &:hover {
-    background: #be95c4;
-    color: white;
-  }
+  position: relative;
+  margin-top: 80px;
 `;
 
 export default Login;

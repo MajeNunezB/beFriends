@@ -7,31 +7,43 @@ import Home from "./component/Home";
 import Profile from "./component/Profile";
 import Header from "./component/Header";
 import Signup from "./component/Signup";
-import { Link } from "react-router-dom";
 
 const App = () => {
   return (
     <>
-      <BrowserRouter>
-        <GlobalStyles />
-        <Header />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/users/:userId">
-            <Profile />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <OrangeBox>
+        <BrowserRouter>
+          <GlobalStyles />
+          <Header />
+          <BlueBox>
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/users/:userId">
+                <Profile />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/signup">
+                <Signup />
+              </Route>
+            </Switch>
+          </BlueBox>
+        </BrowserRouter>
+      </OrangeBox>
     </>
   );
 };
+const OrangeBox = styled.div`
+  border: 1px solid red;
+  max-width: 100vh auto;
+  /* max-height: 80vh auto; */
+`;
+const BlueBox = styled.div`
+  border: 1px solid blue;
+  /* max-height: 80vh auto; */
+`;
 
 export default App;

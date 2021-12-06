@@ -33,6 +33,8 @@ export default createGlobalStyle`
     body {
         line-height: 1;
         font-style: 'Poppins', sans-serif;
+        
+
     }
     ol, ul {
         list-style: none;

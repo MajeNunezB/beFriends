@@ -3,23 +3,45 @@ import styled from "styled-components";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import { Link } from "react-router-dom";
-import Login from "./Login";
 
 const Header = () => {
+  const handlePropagation = (ev) => {
+    ev.stopPropagation();
+  };
+
   return (
     <div>
       <Wrapper>
-        <Title to="/">BeFriends</Title>
+        <Title to="/" onClick={(ev) => handlePropagation(ev)}>
+          BeFriends
+        </Title>
+
         <div>
-          <Header1 to="/Login">Login</Header1>
-          <Header1 to={"/signup"}>Signup</Header1>
+          <LoginButton onClick={(ev) => handlePropagation(ev)} />
+        </div>
+        <div>
+          <LogoutButton onClick={(ev) => handlePropagation(ev)} />
+        </div>
+        <div>
+          <Header2 to={"/signup"} onClick={(ev) => handlePropagation(ev)}>
+            Signup
+          </Header2>
         </div>
       </Wrapper>
     </div>
   );
 };
 
-const Header1 = styled(Link)`
+// const Header1 = styled.div`
+//   padding: 20px 10px;
+//   margin-left: -16px;
+//   text-decoration-line: none;
+//   color: white;
+//   opacity: 0.7;
+//   padding: 30px;
+// `;
+
+const Header2 = styled(Link)`
   padding: 20px 10px;
   margin-left: 16px;
   text-decoration-line: none;

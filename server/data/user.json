@@ -1,92 +1,105 @@
  [
   {
-    "_id": "1",
+    "_id": 1,
     "name": "Christian",
-    "age":25,
+    "age":"25",
+    "email": "christ@gmail.com",
     "friends": ["3", "14", "10","12"],
     "avatarUrl": "/client/public/picture/christian.jpg.jpeg"
   },
   {
-    "_id": "2",
+    "_id": 2,
     "name": "Derick",
-    "age":23,
+    "age":"23",
+    "email": "derickt@gmail.com",
     "friends": ["14", "7", "9"],
     "avatarUrl": "/client/public/picture/derick.jpg.jpeg"
   },
   {
-    "_id": "3",
+    "_id": 3,
     "name": "Greg",
-    "age":30,
+    "age":"30",
+    "email": "greg@gmail.com",
     "friends": ["8", "9", "4"],
     "avatarUrl": "/client/public/picture/greg.jpeg.jpg"
   },
   {
-    "_id": "4",
+    "_id": 4,
     "name": "Harry",
-    "age":29,
+    "age":"29",
+    "email": "harry@gmail.com",
     "friends": ["8", "5", "3"],
     "avatarUrl": "/client/public/picture/harry.jpg"
   },
   {
-    "_id": "5",
+    "_id": 5,
     "name": "Jenny",
-    "age":36,
+    "age":"36",
+    "email": "jenny@gmail.com",
     "friends": ["4", "8"],
     "avatarUrl": "//client/public/picture/jenny.jpg"
   },
   {
-    "_id": "6",
+    "_id": 6,
     "name": "Julian",
-    "age": 37,
+    "age": "37",
+    "email": "juliant@gmail.com",
     "friends": ["11", "7"],
     "avatarUrl": "/client/public/picture/julian.jpg.jpg"
   },
   {
-    "_id": "7",
+    "_id": 7,
     "name": "Laura",
-    "age":39,
+    "age":"39",
+    "email": "laura@gmail.com",
     "friends": ["8", "2", "6"],
     "avatarUrl": "/client/public/picture/laura.jpeg"
   },
   {
-    "_id": "8",
+    "_id": 8,
     "name": "Nate",
-    "age": 27,
+    "age": "27",
+    "email": "natet@gmail.com",
     "friends": ["3", "7", "4", "5"],
     "avatarUrl": "/client/public/picture/nate.jpg"
   },
   {
-    "_id": "9",
+    "_id": 9,
     "name": "Rafaella",
-    "age":28,
+    "age":"28",
+    "email": "rafaella@gmail.com",
     "friends": ["3", "2", "11", "12"],
     "avatarUrl": "/client/public/picture/rafaella.jpg"
   },
   {
-    "_id": "10",
+    "_id": 10,
     "name": "Ruby",
-    "age":35,
+    "age":"35",
+    "email": "ruby@gmail.com",
     "friends": ["14",  "1"],
     "avatarUrl": "/client/public/picture/ruby.jpeg"
   },
   {
-    "_id": "11",
+    "_id": 11,
     "name": "sayo",
-    "age":34,
+    "age":"34",
+    "email": "sayo@gmail.com",
     "friends": [ "9", "6"],
     "avatarUrl": "/client/public/picture/sayo.jpg"
   },
   {
-    "_id": "12",
+    "_id": 12,
     "name": "Tamara",
-    "age":24,
+    "age":"24",
+    "email": "tamy@gmail.com",
     "friends": ["14", "1", "9"],
     "avatarUrl": "/client/public/picture/tamara.jpg"
   },
   {
-    "_id": "14",
+    "_id": 14,
     "name": "Vero",
-    "age":26,
+    "age":"26",
+    "email": "vero@gmail.com",
     "friends": ["12", "1", "2", "10"],
     "avatarUrl": "/client/public/picture/vero.jpeg"
   }

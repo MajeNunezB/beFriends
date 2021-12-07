@@ -56,8 +56,10 @@ const Button = styled.button`
   width: 200px;
   align-content: center;
   background-color: transparent;
-  margin-left: 70px;
+  /* margin-left: 70px; */
   color: #9d8189;
+  position: relative;
+  left: 40px;
 
   &:hover {
     animation: bouncy 3s infinite linear;
@@ -104,7 +106,7 @@ const CarouselDiv = styled.div`
   @media screen and (min-width: 576px) {
     head {
       min-width: 400px;
-      min-height: 600px;
+      min-height: 400px;
     }
   }
 `;
@@ -119,10 +121,11 @@ const Item = styled.div`
   background-color: #9d8189;
   color: #fff;
   margin: 15px;
-  margin-top: 4s0px;
+  margin-top: -50px;
   font-size: 4em;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position: relative;
   /* border: 3px solid blue; */
 
   @media screen and (min-width: 576px) {

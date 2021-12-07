@@ -1,11 +1,34 @@
 import React from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
+import LogoutButton from "./LogoutButton";
 
 const LoginButton = () => {
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
 
-  return <button onClick={() => loginWithRedirect()}>Log In</button>;
+  return (
+    <>
+      {!isAuthenticated ? (
+        <Button onClick={() => loginWithRedirect()}>Login</Button>
+      ) : (
+        ""
+      )}
+    </>
+  );
 };
+
+const Button = styled.button`
+  color: #fff;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  margin-left: 600px;
+  cursor: pointer;
+  position: relative;
+  font-weight: 700;
+  opacity: 0.7;
+`;
 
 export default LoginButton;

@@ -1,7 +1,6 @@
 const { MongoClient } = require("mongodb");
 
-// const users = require("./data/user.json");
-const users = require("https://randomuser.me/api/"); //random user generator api
+const users = require("./data/user.json");
 const languages = require("./data/languages.json");
 const hobbies = require("./data/hobbies.json");
 const religion = require("./data/religion.json");

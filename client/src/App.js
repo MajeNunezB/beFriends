@@ -39,11 +39,9 @@ const App = () => {
 const OrangeBox = styled.div`
   border: 1px solid red;
   max-width: 100vh auto;
-  /* max-height: 80vh auto; */
 `;
 const BlueBox = styled.div`
   border: 1px solid blue;
-  /* max-height: 80vh auto; */
 `;
 
 export default App;

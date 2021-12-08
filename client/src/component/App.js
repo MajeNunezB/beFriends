@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
-import GlobalStyles from "./component/GlobalStyles";
-import Login from "./component/Login";
-import Home from "./component/Home";
-import Profile from "./component/Profile";
-import Header from "./component/Header";
-import Signup from "./component/Signup";
+import GlobalStyles from "./GlobalStyles";
+import Login from "./Login";
+import Home from "./Home";
+import Profile from "./Profile";
+import Header from "./Header";
+import Signup from "./Signup";
 
 const App = () => {
   return (
@@ -28,6 +28,9 @@ const App = () => {
               </Route>
               <Route path="/signup">
                 <Signup />
+              </Route>
+              <Route path="/user/profile">
+                <Profile />
               </Route>
             </Switch>
           </BlueBox>

@@ -11,7 +11,9 @@
     "moment": "^2.29.1",
     "mongodb": "^4.2.1",
     "morgan": "^1.10.0",
+    "node": "^17.2.0",
     "nodemon": "^2.0.15",
+    "react-native-base64": "^0.2.1",
     "uuidv4": "^6.2.12"
   },
   "scripts": {

@@ -1,15 +1,41 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const Signup = () => {
+  const [newUser, setNewUser] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [givenName, setGivenName] = useState("");
+  const [city, setCity] = useState("");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [address, setAddress] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(email, password, givenName);
+  const history = useHistory();
+
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    fetch("/api/adduser", {
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        address: address,
+        age: age,
+        city: city,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setNewUser(json._id);
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log("error");
+      });
   };
 
   return (
@@ -26,11 +52,11 @@ const Signup = () => {
           />
         </Label>
         <Label>
-          <Span>Password:</Span>
+          <Span>City:</Span>
           <Input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            type="city"
+            onChange={(e) => setCity(e.target.value)}
+            value={city}
             required
           />
         </Label>
@@ -38,8 +64,26 @@ const Signup = () => {
           <Span>Name</Span>
           <Input
             type="text"
-            onChange={(e) => setGivenName(e.target.value)}
-            value={givenName}
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            required
+          />
+        </Label>
+        <Label>
+          <Span>Age</Span>
+          <Input
+            type="text"
+            onChange={(e) => setAge(e.target.value)}
+            value={age}
+            required
+          />
+        </Label>
+        <Label>
+          <Span>Address</Span>
+          <Input
+            type="text"
+            onChange={(e) => setAddress(e.target.value)}
+            value={address}
             required
           />
         </Label>

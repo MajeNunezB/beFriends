@@ -4,64 +4,72 @@
     "name": "Christian",
     "age":"25",
     "email": "christ@gmail.com",
+    "address": "123 Montreal, QC",
     "friends": ["3", "14", "10","12"],
-    "avatarUrl": "/client/public/picture/christian.jpg.jpeg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/v1638932639/samples/Mypicture/christian_dcrvbg.jpg"
   },
   {
     "_id": 2,
     "name": "Derick",
     "age":"23",
     "email": "derickt@gmail.com",
+    "address": "123 laval, QC",
     "friends": ["14", "7", "9"],
-    "avatarUrl": "/client/public/picture/derick.jpg.jpeg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1638921861/samples/Mypicture/derick_lx8c7s.jpg"
   },
   {
     "_id": 3,
     "name": "Greg",
     "age":"30",
     "email": "greg@gmail.com",
+    "address": " 487 Av Hudson Montréal-Ouest QC H4X 1W9",
     "friends": ["8", "9", "4"],
-    "avatarUrl": "/client/public/picture/greg.jpeg.jpg"
+    "avatarUrl":" https://res.cloudinary.com/drdbexqbf/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1638921861/samples/Mypicture/greg_qyqcb1.jpg"
   },
   {
     "_id": 4,
     "name": "Harry",
     "age":"29",
     "email": "harry@gmail.com",
+    "address": "1050 Av 100E Laval QC H7W 4A3",
     "friends": ["8", "5", "3"],
-    "avatarUrl": "/client/public/picture/harry.jpg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1638921862/samples/Mypicture/harry_hiyfqt.jpg"
   },
   {
     "_id": 5,
     "name": "Jenny",
     "age":"36",
+    "address": "299 Rue Charles-Vézina Laval QC H7L 5H8",
     "email": "jenny@gmail.com",
     "friends": ["4", "8"],
-    "avatarUrl": "//client/public/picture/jenny.jpg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/v1638921862/samples/Mypicture/jenny_xdaedx.jpg"
   },
   {
     "_id": 6,
     "name": "Julian",
     "age": "37",
+    "address": "7305 59 Av Laval QC H7R 4G5",
     "email": "juliant@gmail.com",
     "friends": ["11", "7"],
-    "avatarUrl": "/client/public/picture/julian.jpg.jpg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1638921862/samples/Mypicture/julian_uubzwo.jpg"
   },
   {
     "_id": 7,
     "name": "Laura",
     "age":"39",
     "email": "laura@gmail.com",
+    "address": " 2045 Grand Montréal QC H4B 2W7",
     "friends": ["8", "2", "6"],
-    "avatarUrl": "/client/public/picture/laura.jpeg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1638921862/samples/Mypicture/laura_osaquu.jpg"
   },
   {
     "_id": 8,
     "name": "Nate",
     "age": "27",
     "email": "natet@gmail.com",
+    "address": "  156 Easton Av Montreal Ouest QC H4X 1L2",
     "friends": ["3", "7", "4", "5"],
-    "avatarUrl": "/client/public/picture/nate.jpg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1638921862/samples/Mypicture/nate_a9l5od.jpg"
   },
   {
     "_id": 9,
@@ -69,39 +77,44 @@
     "age":"28",
     "email": "rafaella@gmail.com",
     "friends": ["3", "2", "11", "12"],
-    "avatarUrl": "/client/public/picture/rafaella.jpg"
+    "address": "  790 Easton Av Montreal Ouest QC H4X 1L2",
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/v1638921868/samples/Mypicture/rafaella_sgwguj.jpg"
   },
   {
     "_id": 10,
     "name": "Ruby",
     "age":"35",
     "email": "ruby@gmail.com",
+    "address": "4667 Rue Chambord Montréal QC H2J 3M8",
     "friends": ["14",  "1"],
-    "avatarUrl": "/client/public/picture/ruby.jpeg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1638921867/samples/Mypicture/ruby_e0vter.jpg"
   },
   {
     "_id": 11,
     "name": "sayo",
     "age":"34",
     "email": "sayo@gmail.com",
+    "address": " 3910 Cavendish Montréal QC H4B 2N3",
     "friends": [ "9", "6"],
-    "avatarUrl": "/client/public/picture/sayo.jpg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1638921868/samples/Mypicture/sayo_nzck0f.jpg"
   },
   {
     "_id": 12,
     "name": "Tamara",
     "age":"24",
+    "address": " 8000 Rue Du Rhone , Brossard, QC, J4X 2L1",
     "email": "tamy@gmail.com",
     "friends": ["14", "1", "9"],
-    "avatarUrl": "/client/public/picture/tamara.jpg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/v1638921870/samples/Mypicture/tamara_nyv5pa.jpg"
   },
   {
     "_id": 14,
     "name": "Vero",
     "age":"26",
+    "address": "4526 Av Harvard Montréal QC H4A 2X2",
     "email": "vero@gmail.com",
     "friends": ["12", "1", "2", "10"],
-    "avatarUrl": "/client/public/picture/vero.jpeg"
+    "avatarUrl": "https://res.cloudinary.com/drdbexqbf/image/upload/v1638921870/samples/Mypicture/vero_malcrg.jpg"
   }
   
 ]

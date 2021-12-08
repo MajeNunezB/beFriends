@@ -21,7 +21,7 @@ const getUsers = async (req, res) => {
     const db = client.db("beFriends");
     const users = await db.collection("users").find({}).toArray();
 
-    res.status(200).json({ status: 200, message: "Succsess!", data: users });
+    res.status(200).json({ status: 200, message: "Success!", data: users });
 
     client.close();
   } catch (error) {
@@ -65,7 +65,7 @@ const getUserById = async (req, res) => {
 //////////////////////////////////////////////////
 
 const addNewUser = async (req, res) => {
-  const { name, city, age, email } = req.body;
+  const { name, city, age, email, address } = req.body; // how to add a new picture from outside
 
   console.log(req.body);
 
@@ -75,26 +75,32 @@ const addNewUser = async (req, res) => {
     await client.connect();
 
     const db = client.db("beFriends");
-
-    user.findOne({ email: email }).then((savedUser) => {
-      if (savedUser) {
-        return res
-          .status(422)
-          .json({ message: "user already exists with that email" });
-      }
-    });
-
-    if (!name || !email || !city || !age) {
+    //to verify that all the fields are added
+    if (!name || !email || !city || !age || !address) {
       return res
         .status(404)
         .json({ status: 404, message: "please add all the fields " });
-    } else {
-      const userId = v4();
-      const user = await db
-        .collection("users")
-        .insertOne({ ...req.body, id: userId });
+    } else if (name.length <= 2) {
+      return res.status(400).json({ status: 400, message: "Name too short" });
+    } else if (!email.includes("@")) {
+      return res.status(400).json({ status: 400, message: "Invalid email" });
+    } else if (address.length <= 5) {
+      return res.status(400).json({ status: 400, message: "invalid address" });
+    } else if (city.length <= 3) {
+      return res.status(400).json({ status: 400, message: "invalid city" });
+    }
+    // function to verify if the user already exist
+    const foundUser = await db.collection("users").findOne({ email: email });
 
-      return res.status(200).json({ status: 200, data: user });
+    // const user = findUser(res.locals.users, updatedUser._id);
+    if (!foundUser) {
+      const newUserId = v4();
+      const newUser = await db
+        .collection("users")
+        .insertOne({ ...req.body, id: newUserId });
+      return res.status(200).json({ status: 200, data: newUser });
+    } else {
+      res.status(400).json({ status: 400, message: "user already exist" });
     }
   } catch (err) {
     console.log(err);

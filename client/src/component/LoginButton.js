@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
-import LogoutButton from "./LogoutButton";
 
 const LoginButton = () => {
   const { loginWithRedirect, isAuthenticated } = useAuth0();

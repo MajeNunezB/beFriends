@@ -1,41 +1,25 @@
 import React from "react";
-import { useState } from "react";
 import styled from "styled-components";
 import Carousel from "react-elastic-carousel";
+import UsersContext from "./UsersContext";
+import HomePicGrid from "./HomePicGrid";
 
 const Home = () => {
   //example
-  const [items, setItems] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
+  const { userData, status } = React.useContext(UsersContext);
 
-  const breakPoints = [
-    { width: 1, itemsToShow: 1 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
-    { width: 768, itemsToShow: 3 },
-    { width: 1200, itemsToShow: 4 },
-  ];
-
-  //addFriend
-  const addItem = () => {
-    const nextItem = Math.max(1, items.length + 1);
-    setItems([...items, nextItem]);
-  };
-
-  //dont Like remove user
-  const removeItem = () => {
-    const endRange = Math.max(0, items.length - 1);
-    setItems(items.slice(0, endRange));
-  };
-
+  if (status === "loading") {
+    return "loading...";
+  }
   return (
     <div>
       <Background>
         <CarouselDiv>
-          <Button onClick={removeItem}>Remove User</Button>
-          <Button onClick={addItem}>Add Friend</Button>
-          <Carousel breakPoints={breakPoints}>
-            {items.map((item) => (
-              <Item key={item}>{item}</Item>
-            ))}
+          <Carousel>
+            {userData &&
+              userData.map((user) => {
+                return <HomePicGrid key={user._id} user={user} />;
+              })}
           </Carousel>
         </CarouselDiv>
       </Background>
@@ -48,47 +32,6 @@ const Background = styled.div`
   opacity: 0.8;
   background-size: cover;
   position: relative;
-`;
-
-const Button = styled.button`
-  padding: 15px;
-  border: none;
-  width: 200px;
-  align-content: center;
-  background-color: transparent;
-  /* margin-left: 70px; */
-  color: #9d8189;
-  position: relative;
-  left: 40px;
-
-  &:hover {
-    animation: bouncy 3s infinite linear;
-    position: relative;
-
-    @keyframes bouncy {
-      0% {
-        top: 0em;
-      }
-      40% {
-        top: 0em;
-      }
-      43% {
-        top: -0.9em;
-      }
-      46% {
-        top: 0em;
-      }
-      48% {
-        top: -0.4em;
-      }
-      50% {
-        top: 0em;
-      }
-      100% {
-        top: 0em;
-      }
-    }
-  }
 `;
 
 const CarouselDiv = styled.div`
@@ -107,32 +50,6 @@ const CarouselDiv = styled.div`
     head {
       min-width: 400px;
       min-height: 400px;
-    }
-  }
-`;
-
-const Item = styled.div`
-  display: flex;
-  justify-content: center;
-  /* padding: 15px; */
-  align-items: center;
-  height: 500px;
-  width: 150%;
-  background-color: #9d8189;
-  color: #fff;
-  margin: 15px;
-  margin-top: -50px;
-  font-size: 4em;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  position: relative;
-  /* border: 3px solid blue; */
-
-  @media screen and (min-width: 576px) {
-    head {
-      width: min(90%.70.5rem);
-      min-width: 400px;
-      margin: 15px;
     }
   }
 `;

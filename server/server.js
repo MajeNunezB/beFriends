@@ -6,7 +6,7 @@ const PORT = 8000;
 // Important Handlers
 
 const { getUsers, getUserById, addNewUser } = require("./handlers");
-const { upload } = require("./HandlerPicture");
+// const { upload } = require("./HandlerPicture");
 
 const app = express();
 
@@ -35,7 +35,7 @@ app.use("/", express.static(__dirname + "/"));
 app.get("/api/users", getUsers);
 app.get("/api/getuser/:id", getUserById);
 app.post("/api/adduser", addNewUser);
-app.post("/api/upload", upload);
+// app.post("/api/upload", upload);
 
 // Home Page endpoint
 app.get("/", (req, res) => {

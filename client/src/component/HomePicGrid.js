@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import UsersContext from "./UsersContext";
 import { useContext } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router";
 
 const HomePicGrid = ({ user }) => {
-  const { status } = useContext(UsersContext);
+  const { status, userData, setStatus } = useContext(UsersContext);
+  const [profile, setProfile] = useState({});
+
+  // const { id } = useParams();
+
+  // React.useEffect(() => {
+  //   setStatus("loading");
+  //   fetch(`/api/users/${id}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       // setProfile(data.);
+  //       setStatus("idle");
+  //     })
+  //     .catch((err) => {
+  //       setStatus("error");
+  //     });
+  // }, []);
 
   if (status === "loading") {
     return "loading...";
@@ -12,35 +31,41 @@ const HomePicGrid = ({ user }) => {
   return (
     <>
       <div key={user._id}>
-        <LinkImg>
+        <Link to="/user/profile">
           <Img src={user && user.avatarUrl} />
-        </LinkImg>
+        </Link>
         <Name>{user.name}</Name>
       </div>
     </>
   );
 };
 
-const LinkImg = styled.div``;
+// const Link = styled(Link)`
+//   text-decoration: none;
+// `;
 
 const Name = styled.span`
-  text-align: center !important;
   padding-top: 20px;
   font-weight: bold;
   color: white;
   opacity: 0.7;
+  margin-left: 250px;
 `;
 
 const Img = styled.img`
+  display: grid;
+  > .slide {
+    grid-area: 1 / -1;
+  }
+
   display: flex;
   justify-content: center;
-  /* padding: 15px; */
+  padding: 15px;
   align-items: center;
   height: 500px;
   width: 500px;
   color: #fff;
   margin: 15px;
-  /* margin-top: -50px; */
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: relative;

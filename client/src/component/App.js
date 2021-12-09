@@ -2,11 +2,10 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
-import Login from "./Login";
 import Home from "./Home";
 import Profile from "./Profile";
 import Header from "./Header";
-import Signup from "./Signup";
+import AfterSignup from "./AfterSignup";
 
 const App = () => {
   return (
@@ -20,14 +19,11 @@ const App = () => {
               <Route exact path="/">
                 <Home />
               </Route>
-              <Route path="/users/:userId">
+              <Route path="/users/:id">
                 <Profile />
               </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
               <Route path="/signup">
-                <Signup />
+                <AfterSignup />
               </Route>
               <Route path="/user/profile">
                 <Profile />

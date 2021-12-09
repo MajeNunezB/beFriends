@@ -60,12 +60,12 @@ const getUserById = async (req, res) => {
   }
 };
 
-///////////////////////////////////////////////////
-//            Function to add new user           //
-//////////////////////////////////////////////////
+// ///////////////////////////////////////////////////
+// //            Function to add new user           //
+// //////////////////////////////////////////////////
 
 const addNewUser = async (req, res) => {
-  const { name, city, age, email, address } = req.body; // how to add a new picture from outside
+  const { name, city, age, address, occupation, bio } = req.body; // how to add a new picture from outside
 
   console.log(req.body);
 
@@ -76,18 +76,20 @@ const addNewUser = async (req, res) => {
 
     const db = client.db("beFriends");
     //to verify that all the fields are added
-    if (!name || !email || !city || !age || !address) {
+    if (!name || !city || !age || !address || !occupation) {
       return res
         .status(404)
         .json({ status: 404, message: "please add all the fields " });
     } else if (name.length <= 2) {
       return res.status(400).json({ status: 400, message: "Name too short" });
-    } else if (!email.includes("@")) {
-      return res.status(400).json({ status: 400, message: "Invalid email" });
     } else if (address.length <= 5) {
       return res.status(400).json({ status: 400, message: "invalid address" });
     } else if (city.length <= 3) {
       return res.status(400).json({ status: 400, message: "invalid city" });
+    } else if (occupation.length <= 3) {
+      return res
+        .status(400)
+        .json({ status: 400, message: "invalid occupation" });
     }
     // function to verify if the user already exist
     const foundUser = await db.collection("users").findOne({ email: email });

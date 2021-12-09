@@ -3,6 +3,7 @@ import styled from "styled-components";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import { Link } from "react-router-dom";
+import { FiUser } from "react-icons/fi";
 
 const Header = () => {
   const handlePropagation = (ev) => {
@@ -17,29 +18,35 @@ const Header = () => {
         </Title>
 
         <div>
+          <Linkicon to="/user/profile">
+            <FiUser />
+          </Linkicon>
+        </div>
+        <div>
           <LoginButton onClick={(ev) => handlePropagation(ev)} />
         </div>
         <div>
           <LogoutButton onClick={(ev) => handlePropagation(ev)} />
         </div>
+
         <div>
-          <Header2 to={"/signup"} onClick={(ev) => handlePropagation(ev)}>
+          {/* <Header2  onClick={(ev) => handlePropagation(ev)}>
             Signup
-          </Header2>
+          </Header2> */}
         </div>
       </Wrapper>
     </div>
   );
 };
 
-// const Header1 = styled.div`
-//   padding: 20px 10px;
-//   margin-left: -16px;
-//   text-decoration-line: none;
-//   color: white;
-//   opacity: 0.7;
-//   padding: 30px;
-// `;
+const Header1 = styled.div`
+  padding: 20px 10px;
+  margin-left: -16px;
+  text-decoration-line: none;
+  color: white;
+  opacity: 0.7;
+  padding: 30px;
+`;
 
 const Header2 = styled(Link)`
   padding: 20px 10px;
@@ -48,6 +55,10 @@ const Header2 = styled(Link)`
   color: white;
   opacity: 0.7;
   padding: 30px;
+`;
+
+const Linkicon = styled(Link)`
+  text-decoration: none;
 `;
 
 const Title = styled(Link)`

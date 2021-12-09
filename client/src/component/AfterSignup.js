@@ -1,36 +1,40 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import UsersContext from "./UsersContext";
 
 const Signup = () => {
   const [newUser, setNewUser] = useState("");
-  const [email, setEmail] = useState("");
-  const [city, setCity] = useState("");
-  const [name, setName] = useState("");
-  const [age, setAge] = useState("");
-  const [address, setAddress] = useState("");
-
+  const { setStatus, status } = useContext(UsersContext);
+  const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
+
+  const [userInfo, setUserInfo] = useState({
+    city: "",
+    name: "",
+    age: "",
+    address: "",
+    occupation: "",
+    bio: "",
+  });
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    fetch("/api/adduser", {
+    console.log(userInfo);
+
+    fetch("/api/addUser", {
       method: "POST",
-      body: JSON.stringify({
-        name: name,
-        email: email,
-        address: address,
-        age: age,
-        city: city,
-      }),
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(userInfo),
     })
       .then((res) => res.json())
-      .then((json) => {
-        setNewUser(json._id);
+      .then((data) => {
+        window.localStorage.setItem("reservation", JSON.stringify(data.data));
+        console.log(data);
+        // setNewUser(data._id);
         history.push("/");
       })
       .catch((err) => {
@@ -38,16 +42,27 @@ const Signup = () => {
       });
   };
 
+  const handleChange = (ev) => {
+    setUserInfo({
+      ...userInfo,
+      [ev.target.name]: ev.target.value,
+    });
+  };
+
+  if (status === "loading") {
+    return "loading...";
+  }
+
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        <Title>Signup</Title>
+        <Title>Please complete the following information</Title>
         <Label>
-          <Span>Email:</Span>
+          <Span>Name:</Span>
           <Input
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            type="text"
+            onChange={handleChange}
+            value={userInfo?.name}
             required
           />
         </Label>
@@ -55,17 +70,17 @@ const Signup = () => {
           <Span>City:</Span>
           <Input
             type="city"
-            onChange={(e) => setCity(e.target.value)}
-            value={city}
+            onChange={handleChange}
+            value={userInfo?.city}
             required
           />
         </Label>
         <Label>
-          <Span>Name</Span>
+          <Span>Occupation</Span>
           <Input
             type="text"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
+            onChange={handleChange}
+            value={userInfo?.Occupation}
             required
           />
         </Label>
@@ -73,8 +88,8 @@ const Signup = () => {
           <Span>Age</Span>
           <Input
             type="text"
-            onChange={(e) => setAge(e.target.value)}
-            value={age}
+            onChange={handleChange}
+            value={userInfo?.age}
             required
           />
         </Label>
@@ -82,8 +97,17 @@ const Signup = () => {
           <Span>Address</Span>
           <Input
             type="text"
-            onChange={(e) => setAddress(e.target.value)}
-            value={address}
+            onChange={handleChange}
+            value={userInfo?.address}
+            required
+          />
+        </Label>
+        <Label>
+          <Span>Bio</Span>
+          <Input
+            type=""
+            onChange={handleChange}
+            value={userInfo?.bio}
             required
           />
         </Label>

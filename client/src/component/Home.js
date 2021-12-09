@@ -43,6 +43,7 @@ const CarouselDiv = styled.div`
   margin-left: 880px;
   padding: 80px;
   margin-inline: auto;
+
   /* box-shadow: inset 0 0 1px 0px #be95c4; */
   /* border: 3px solid red; */
 

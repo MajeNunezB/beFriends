@@ -1,93 +1,104 @@
-import React, { useState } from "react";
-import base64EncodeImage from "react-native-base64";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import UsersContext from "./UsersContext";
 
-const Upload = () => {
-  const [fileInput, setFileInput] = useState("");
-  const [previewSource, setPreviewSource] = useState("");
+const Upload = ({ user1 }) => {
+  const [image, setImage] = useState("");
+  const [name, setName] = useState("");
+  const [textLength, setTextLength] = useState(281);
+  const [statusUpdate, setStatusUpdate] = useState("");
+  const { useData, status } = useContext(UsersContext);
 
-  const handleFile = (e) => {
-    const file = e.target.files[0];
-    previewFile(file);
-  };
-
-  //to get the previews image, with readAsDataURL method is used to read the context of the file
-  const previewFile = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreviewSource(reader.result);
-    };
-  };
-
-  //to be able to see the file, using FileReader() object
-  const handleSubmitFile = (e) => {
-    e.preventDefault();
-    if (!previewFile) return;
-    uploadImage(previewSource);
-
-    const reader = new FileReader();
-
-    // reader.readAsDataURL(base64EncodeImage);
-  };
-
-  //   const handleSubmitFile = (e) => {
-  //     if (window.FileReader) {
-  //       let reader = new FileReader();
-  //       if (previewFile && previewFile.type.match("image.*")) {
-  //         reader.readAsDataURL(base64EncodeImage);
-  //       } else {
-  //         previewFile.attr("src", "");
-  //       }
-  //       reader.onloadend = function (e) {
-  //         previewFile.attr("src", reader.result);
-  //       };
-  //     }
-  //   };
-
-  //to send the data to the backend
-  const uploadImage = async (base64EncodeImage) => {
-    console.log(base64EncodeImage);
-    try {
-      await fetch("api/upload", {
-        method: "Post",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify({ data: base64EncodeImage }),
+  console.log(user1);
+  //function to send image to cloudinary and transform it into a URL
+  const postDetails = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "Mypicture");
+    data.append("cloud-name", "drdbexqbf");
+    fetch("https://api.cloudinary.com/v1_1/drdbexqbf/image/upload", {
+      method: "Post",
+      // headers: { "Content-type": "application/json" },
+      body: data,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
-  //Reder the file input and the submit button to update the picture
+  //to render the file input and the submit button to update the picture
+
+  if (status === "loading") {
+    return "loading...";
+  }
+
   return (
     <div>
       <H1>Profile</H1>
-      <form onSubmit={handleSubmitFile}>
-        <input
-          type="file"
-          name="imagen"
-          onChange={(e) => {
-            handleFile(e);
-          }}
-          value={fileInput}
-        />
-        <button type="submit">submit</button>
-      </form>
-      {previewSource && (
-        <img
-          src={previewSource}
-          alt="image"
-          style={{ width: "300px", height: "300px" }}
-        />
-      )}
+
+      <div>
+        <Form>
+          <Input1
+            onChange={(e) => {
+              // setTweetMessage(e.target.value);
+              setTextLength(280 - e.target.value.length);
+              setStatusUpdate(e.target.value);
+            }}
+            placeholder="About you.."
+            type="text"
+          />
+          <Input
+            type="file"
+            onChange={(e) => {
+              setImage(e.target.files[0]);
+            }}
+          />
+          <Button onClick={(e) => postDetails(e)}>submit</Button>
+        </Form>
+      </div>
     </div>
   );
 };
 
-const H1 = styled.h1`
-  padding: 15px;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column !important;
+
+  margin: 20px;
 `;
+
+const Input = styled.input`
+  width: 200px;
+  border-radius: 15px;
+  background-color: white;
+  color: #be95c4;
+  font-weight: 700px;
+`;
+const Input1 = styled.input`
+  width: 200px;
+  border-radius: 15px;
+  background-color: white;
+  color: #be95c4;
+  font-weight: 700px;
+  height: 80px;
+  width: 500px;
+`;
+const Button = styled.button`
+  width: 200px;
+  border-radius: 15px;
+  background-color: transparent;
+  color: #be95c4;
+  font-weight: 700px;
+`;
+
+const H1 = styled.h1`
+  padding: 25px;
+`;
+
 export default Upload;
 
 //FileReader.readAsDataURL()

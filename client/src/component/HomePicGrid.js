@@ -6,24 +6,8 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 
 const HomePicGrid = ({ user }) => {
-  const { status, userData, setStatus } = useContext(UsersContext);
+  const { status, userData, currentUser } = useContext(UsersContext);
   const [profile, setProfile] = useState({});
-
-  // const { id } = useParams();
-
-  // React.useEffect(() => {
-  //   setStatus("loading");
-  //   fetch(`/api/users/${id}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       // setProfile(data.);
-  //       setStatus("idle");
-  //     })
-  //     .catch((err) => {
-  //       setStatus("error");
-  //     });
-  // }, []);
 
   if (status === "loading") {
     return "loading...";
@@ -31,18 +15,19 @@ const HomePicGrid = ({ user }) => {
   return (
     <>
       <div key={user._id}>
-        <Link to="/user/profile">
-          <Img src={user && user.avatarUrl} />
+        <Link to="/user/profile/">
+          {!userData.avatarUrl ? (
+            <Img src={user && user.avatarUrl} />
+          ) : (
+            <Img src="https://res.cloudinary.com/drdbexqbf/image/upload/v1639065686/samples/Mypicture/no-user-image-icon-27_iukhui.png" />
+          )}
         </Link>
         <Name>{user.name}</Name>
+        <div>{user.bio}</div>
       </div>
     </>
   );
 };
-
-// const Link = styled(Link)`
-//   text-decoration: none;
-// `;
 
 const Name = styled.span`
   padding-top: 20px;

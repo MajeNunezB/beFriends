@@ -4,17 +4,14 @@ import UsersContext from "./UsersContext";
 
 const Upload = ({ user1 }) => {
   const [image, setImage] = useState("");
-  const [name, setName] = useState("");
-  const [textLength, setTextLength] = useState(281);
-  const [statusUpdate, setStatusUpdate] = useState("");
-  const { useData, status } = useContext(UsersContext);
+  const { currentUser, status } = useContext(UsersContext);
 
   console.log(user1);
   //function to send image to cloudinary and transform it into a URL
   const postDetails = () => {
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "Mypicture");
+    data.append("upload_preset", "Sample");
     data.append("cloud-name", "drdbexqbf");
     fetch("https://api.cloudinary.com/v1_1/drdbexqbf/image/upload", {
       method: "Post",

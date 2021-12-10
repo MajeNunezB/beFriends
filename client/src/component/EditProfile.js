@@ -3,23 +3,25 @@ import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import UsersContext from "./UsersContext";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const EditProfile = () => {
   const { currentUser, setCurrentUser, setStatus, status } =
     useContext(UsersContext);
-  const { language, setLanguage } = useState({});
+  const [language, setLanguage] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
+  const { user } = useAuth0();
 
   const [userInfo, setUserInfo] = useState({
-    city: "",
-    name: "",
-    age: "",
-    address: "",
-    occupation: "",
-    picture: "",
-    bio: "",
-    language: "",
+    city: currentUser.city,
+    name: currentUser.name,
+    age: currentUser.age,
+    address: currentUser.address,
+    occupation: currentUser.occupation,
+    // picture: "",
+    bio: currentUser.bio,
+    language: currentUser.language,
   });
 
   //fetch to get list of different languages in quebec
@@ -37,10 +39,11 @@ const EditProfile = () => {
       });
   }, []);
 
+  //fetch to patch the data
   const handleSubmit = (ev) => {
     ev.preventDefault();
 
-    fetch(`/api/addInfo/${currentUser.email}`, {
+    fetch(`/api/addInfo/${user.email}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -52,6 +55,7 @@ const EditProfile = () => {
         if (data.status === 200) {
           // window.localStorage.setItem("reservation", JSON.stringify(data.data));
           setCurrentUser(data);
+          window.location.reload(false);
           history.push("/user/profile");
           setStatus("idle");
         } else if (data.status === 404) {
@@ -83,22 +87,20 @@ const EditProfile = () => {
           <Span>Name</Span>
           <Input
             type="text"
-            placeholder="enter your full name"
             name="name"
             onChange={handleChange}
             value={userInfo?.name}
-            required
+            // required
           />
         </Label>
         <Label>
           <Span>City</Span>
           <Input
             type="city"
-            placeholder="Enter your address"
             name="city"
             onChange={handleChange}
             value={userInfo?.city}
-            required
+            // required
           />
         </Label>
         <Label>
@@ -106,10 +108,9 @@ const EditProfile = () => {
           <Input
             type="text"
             name="occupation"
-            placeholder="Enter your Occupation"
             onChange={handleChange}
             value={userInfo?.occupation}
-            required
+            // required
           />
         </Label>
         <Label>
@@ -129,7 +130,7 @@ const EditProfile = () => {
             name="address"
             onChange={handleChange}
             value={userInfo?.address}
-            required
+            // required
           />
         </Label>
         <Label>
@@ -139,7 +140,7 @@ const EditProfile = () => {
             name="bio"
             onChange={handleChange}
             value={userInfo?.bio}
-            required
+            // required
           />
         </Label>
         <Div>
@@ -147,20 +148,17 @@ const EditProfile = () => {
             <Span>Language</Span>
             <div>
               <Select
-                defaultValue="default"
                 name="language"
                 onChange={(ev) => {
                   handleChange(ev);
                 }}
               >
-                <option value="" disabled selected>
-                  Choose your Language
-                </option>
+                <option value="default">Choose your Language</option>
                 {language &&
                   language.map((ele, index) => {
                     return (
-                      <option value={ele} key={index}>
-                        {ele}
+                      <option value={ele.languages} key={index}>
+                        {ele.languages}
                       </option>
                     );
                   })}

@@ -17,8 +17,8 @@ const Profile = () => {
       <Container>
         <PicBack></PicBack>
         <PhotoDiv>
-          {currentUser ? (
-            <Img src={currentUser?.picture} />
+          {currentUser.avatarUrl ? (
+            <Img src={currentUser?.avatarUrl} />
           ) : (
             <Img src="https://res.cloudinary.com/drdbexqbf/image/upload/v1639065686/samples/Mypicture/no-user-image-icon-27_iukhui.png" />
           )}
@@ -125,7 +125,7 @@ const Name = styled.h1`
 `;
 
 const Email = styled.h1`
-  margin-top: -5px;
+  margin-top: 5px;
   margin-bottom: 5px;
   font-family: "Montserrat", sans-serif;
   font-size: 11pt;

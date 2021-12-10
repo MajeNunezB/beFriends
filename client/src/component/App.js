@@ -28,7 +28,7 @@ const App = () => {
                 <EditProfile />
               </Route>
               <Route path="/user/profile">
-                {!currentUser ? <Profile /> : <Redirect to="/" />}
+                {currentUser ? <Profile /> : <Redirect to="/" />}
               </Route>
             </Switch>
           </BlueBox>

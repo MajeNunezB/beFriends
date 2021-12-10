@@ -37,7 +37,8 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/", express.static(__dirname + "/"));
 
-//API
+//API//
+
 //handle users
 app.get("/api/users", getUsers);
 app.get("/api/getUser/:id", getUserById);
@@ -47,6 +48,7 @@ app.patch("/api/addInfo/:email", addUserInfo);
 
 //handle languages
 app.get("/languages", getLanguage);
+
 // Home Page endpoint
 app.get("/", (req, res) => {
   res.status(200).json({ status: 200, message: "Home page" });

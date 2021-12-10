@@ -67,13 +67,13 @@ const getUserByEmail = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
   const { email } = req.params;
-
+  console.log(email);
   try {
     await client.connect();
 
     const db = client.db("beFriends");
     let user = await db.collection("users").findOne({ email: email });
-
+    console.log(user);
     res.status(200).json({ status: 200, message: "User found", data: user });
 
     client.close();
@@ -155,8 +155,7 @@ const getNewUser = async (req, res) => {
 const addUserInfo = async (req, res) => {
   const { email } = req.params;
 
-  const { name, city, age, address, occupation, bio, picture, language } =
-    req.body;
+  const { name, city, age, address, occupation, bio, language } = req.body;
 
   console.log(req.body);
   const client = new MongoClient(MONGO_URI, options);
@@ -173,20 +172,19 @@ const addUserInfo = async (req, res) => {
       !age ||
       !address ||
       !occupation ||
-      !picture ||
       !bio ||
       !language
     ) {
       return res
         .status(404)
         .json({ status: 404, message: "please add all the fields " });
-    } else if (name.length <= 2) {
+    } else if (name.length <= 1) {
       return res.status(400).json({ status: 400, message: "Name too short" });
     } else if (address.length <= 5) {
       return res.status(400).json({ status: 400, message: "invalid address" });
     } else if (city.length <= 3) {
       return res.status(400).json({ status: 400, message: "invalid city" });
-    } else if (occupation.length <= 3) {
+    } else if (occupation.length <= 2) {
       return res
         .status(400)
         .json({ status: 400, message: "invalid occupation" });
@@ -194,12 +192,13 @@ const addUserInfo = async (req, res) => {
 
     // getting the current user
     const currentUser = await db.collection("users").findOne({ email: email });
+    console.log(currentUser);
 
-    //updating the  data
+    // updating the  data
     const data = await db
       .collection("users")
-      .updateMany({ currentUser }, { $set: { ...req.body } });
-    console.log(req.body);
+      .updateOne({ email: email }, { $set: { ...req.body, currentUser } });
+
     res.status(200).json({ status: 200, data });
 
     client.close();

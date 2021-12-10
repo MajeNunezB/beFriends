@@ -6,7 +6,7 @@ import HomePicGrid from "./HomePicGrid";
 
 const Home = () => {
   //example
-  const { userData, status } = React.useContext(UsersContext);
+  const { userData, status, currentUser } = React.useContext(UsersContext);
 
   if (status === "loading") {
     return "loading...";

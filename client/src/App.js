@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import styled from "styled-components";
-import GlobalStyles from "./GlobalStyles";
-import Home from "./Home";
-import Profile from "./Profile";
-import Header from "./Header";
-import EditProfile from "./EditProfile";
-import UsersContext from "./UsersContext";
+import GlobalStyles from "./component/GlobalStyles";
+import Login from "./component/Login";
+import Home from "./component/Home";
+import Profile from "./component/Profile";
+import Header from "./component/Header";
+import Signup from "./component/Signup";
 
 const App = () => {
-  const { currentUser } = useContext(UsersContext);
   return (
     <>
       <OrangeBox>
@@ -21,14 +20,14 @@ const App = () => {
               <Route exact path="/">
                 <Home />
               </Route>
-              <Route path="/users/:id">
+              <Route path="/users/:userId">
                 <Profile />
               </Route>
-              <Route path="/editProfile">
-                <EditProfile />
+              <Route path="/login">
+                <Login />
               </Route>
-              <Route path="/user/profile">
-                {!currentUser ? <Profile /> : <Redirect to="/" />}
+              <Route path="/signup">
+                <Signup />
               </Route>
             </Switch>
           </BlueBox>

@@ -28,12 +28,6 @@ const Header = () => {
         <div>
           <LogoutButton onClick={(ev) => handlePropagation(ev)} />
         </div>
-
-        <div>
-          {/* <Header2  onClick={(ev) => handlePropagation(ev)}>
-            Signup
-          </Header2> */}
-        </div>
       </Wrapper>
     </div>
   );

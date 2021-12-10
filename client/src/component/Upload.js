@@ -18,7 +18,7 @@ const Upload = ({ user1 }) => {
     data.append("cloud-name", "drdbexqbf");
     fetch("https://api.cloudinary.com/v1_1/drdbexqbf/image/upload", {
       method: "Post",
-      // headers: { "Content-type": "application/json" },
+      headers: { "Content-type": "application/json" },
       body: data,
     })
       .then((res) => res.json())
@@ -38,65 +38,39 @@ const Upload = ({ user1 }) => {
 
   return (
     <div>
-      <H1>Profile</H1>
-
-      <div>
-        <Form>
-          <Input1
-            onChange={(e) => {
-              // setTweetMessage(e.target.value);
-              setTextLength(280 - e.target.value.length);
-              setStatusUpdate(e.target.value);
-            }}
-            placeholder="About you.."
-            type="text"
-          />
-          <Input
-            type="file"
-            onChange={(e) => {
-              setImage(e.target.files[0]);
-            }}
-          />
-          <Button onClick={(e) => postDetails(e)}>submit</Button>
-        </Form>
-      </div>
+      <Form>
+        <Input
+          type="file"
+          onChange={(e) => {
+            setImage(e.target.files[0]);
+          }}
+        />
+        <Button onClick={(e) => postDetails(e)}>submit</Button>
+      </Form>
     </div>
   );
 };
 
 const Form = styled.form`
   display: flex;
-  flex-direction: column !important;
-
-  margin: 20px;
+  justify-content: center;
 `;
 
 const Input = styled.input`
-  width: 200px;
-  border-radius: 15px;
   background-color: white;
-  color: #be95c4;
-  font-weight: 700px;
-`;
-const Input1 = styled.input`
-  width: 200px;
-  border-radius: 15px;
-  background-color: white;
-  color: #be95c4;
-  font-weight: 700px;
-  height: 80px;
-  width: 500px;
-`;
-const Button = styled.button`
-  width: 200px;
-  border-radius: 15px;
-  background-color: transparent;
-  color: #be95c4;
+  color: transparent;
   font-weight: 700px;
 `;
 
-const H1 = styled.h1`
-  padding: 25px;
+const Button = styled.button`
+  color: black;
+  font-size: 0.678rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 400;
+  border-radius: 2px;
+  border: 1px solid black;
+  width: 100px;
 `;
 
 export default Upload;

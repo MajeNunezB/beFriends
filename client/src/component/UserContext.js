@@ -1,19 +1,6 @@
 import React, { Children } from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
-
-// ReactDOM.render(
-//   <Auth0Provider
-//     domain="dev-1m1ofvm9.us.auth0.com"
-//     clientId="jYf9iZk3UezvoGSbI9UTjvVrd1vbCEGr"
-//     redirectUri={ `${window.location.origin}/signup`}
-//   >
-//     <App />
-//   </Auth0Provider>,
-//   document.getElementById("root")
-// );
 
 const Auth0ProviderWithHistory = ({ children }) => {
   const domain = "dev-1m1ofvm9.us.auth0.com";

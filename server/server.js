@@ -4,8 +4,15 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const PORT = 8000;
 // Important Handlers
+const { getLanguage } = require("./AllHandlers/handlerLanguage");
+const {
+  getUsers,
+  getUserById,
+  addUserInfo,
+  getNewUser,
+  getUserByEmail,
+} = require("./AllHandlers/handlers");
 
-const { getUsers, getUserById, addNewUser } = require("./handlers");
 // const { upload } = require("./HandlerPicture");
 
 const app = express();
@@ -33,10 +40,13 @@ app.use("/", express.static(__dirname + "/"));
 //API
 //handle users
 app.get("/api/users", getUsers);
-app.get("/api/getuser/:id", getUserById);
-app.post("/api/adduser", addNewUser);
-// app.post("/api/upload", upload);
+app.get("/api/getUser/:id", getUserById);
+app.get("/api/userEmail/:email", getUserByEmail);
+app.get("/api/NewUser", getNewUser);
+app.patch("/api/addInfo/:email", addUserInfo);
 
+//handle languages
+app.get("/languages", getLanguage);
 // Home Page endpoint
 app.get("/", (req, res) => {
   res.status(200).json({ status: 200, message: "Home page" });

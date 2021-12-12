@@ -1,26 +1,48 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import UsersContext from "./UsersContext";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useHistory } from "react-router-dom";
 
-const Upload = ({ user1 }) => {
+const Upload = () => {
+  const history = useHistory();
   const [image, setImage] = useState("");
   const { currentUser, status } = useContext(UsersContext);
+  const [url, setUrl] = useState(null);
+  const { user } = useAuth0();
 
-  console.log(user1);
+  useEffect(() => {
+    if (url) {
+      fetch(`/user/picture/${currentUser.email}`, {
+        method: "post",
+        header: { "content-type": "application/json" },
+        body: JSON.stringify({ url: url }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setUrl(data.url);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [url]);
+
   //function to send image to cloudinary and transform it into a URL
-  const postDetails = () => {
+  const postDetails = (ev) => {
+    ev.preventDefault();
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "Sample");
+    data.append("upload_preset", "Mypicture");
     data.append("cloud-name", "drdbexqbf");
+    console.log(image);
     fetch("https://api.cloudinary.com/v1_1/drdbexqbf/image/upload", {
-      method: "Post",
-      headers: { "Content-type": "application/json" },
+      method: "POST",
       body: data,
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        setUrl(data.url);
       })
       .catch((error) => {
         console.log(error);
@@ -35,15 +57,17 @@ const Upload = ({ user1 }) => {
 
   return (
     <div>
-      <Form>
+      <Form encType="multipart/form-data" onSubmit={(ev) => postDetails(ev)}>
         <Input
           type="file"
           onChange={(e) => {
             setImage(e.target.files[0]);
+            console.log(e.target.files[0]);
           }}
         />
-        <Button onClick={(e) => postDetails(e)}>submit</Button>
+        <Button type="submit">submit</Button>
       </Form>
+      <Img src={url && url} />
     </div>
   );
 };
@@ -51,6 +75,11 @@ const Upload = ({ user1 }) => {
 const Form = styled.form`
   display: flex;
   justify-content: center;
+`;
+
+const Img = styled.img`
+  width: 200px;
+  height: 200px;
 `;
 
 const Input = styled.input`

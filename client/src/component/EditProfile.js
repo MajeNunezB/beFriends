@@ -6,22 +6,28 @@ import UsersContext from "./UsersContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const EditProfile = () => {
-  const { currentUser, setCurrentUser, setStatus, status } =
-    useContext(UsersContext);
+  const {
+    currentUser,
+    setCurrentUser,
+    setStatus,
+    status,
+    refresh,
+    setRefresh,
+  } = useContext(UsersContext);
   const [language, setLanguage] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
   const { user } = useAuth0();
 
   const [userInfo, setUserInfo] = useState({
-    city: currentUser.city,
-    name: currentUser.name,
-    age: currentUser.age,
-    address: currentUser.address,
-    occupation: currentUser.occupation,
+    city: currentUser?.city,
+    name: currentUser?.name,
+    age: currentUser?.age,
+    address: currentUser?.address,
+    occupation: currentUser?.occupation,
     // picture: "",
-    bio: currentUser.bio,
-    language: currentUser.language,
+    bio: currentUser?.bio,
+    language: currentUser?.language,
   });
 
   //fetch to get list of different languages in quebec
@@ -44,7 +50,7 @@ const EditProfile = () => {
     ev.preventDefault();
 
     fetch(`/api/addInfo/${user.email}`, {
-      method: "PATCH",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -52,10 +58,11 @@ const EditProfile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.status === 200) {
           // window.localStorage.setItem("reservation", JSON.stringify(data.data));
-          setCurrentUser(data);
-          window.location.reload(false);
+          setCurrentUser(data.currentUser);
+          // setRefresh(!refresh);
           history.push("/user/profile");
           setStatus("idle");
         } else if (data.status === 404) {
@@ -120,7 +127,7 @@ const EditProfile = () => {
             name="age"
             onChange={handleChange}
             value={userInfo?.age}
-            required
+            // required
           />
         </Label>
         <Label>
@@ -166,7 +173,7 @@ const EditProfile = () => {
             </div>
           </Label>
         </Div>
-        <Button>Save</Button>
+        <Button type="submit">Save</Button>
         {errorMessage && <P> {errorMessage} </P>}
       </Form>
     </div>

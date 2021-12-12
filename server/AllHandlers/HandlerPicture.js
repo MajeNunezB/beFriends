@@ -1,28 +1,46 @@
-// const express = require("express");
-// const app = express();
-// const cloudinary = require("./cloudinary");
+require("dotenv").config();
 
-// //limit of megaBites
-// app.use(express.json({ limit: "100mb" }));
-// app.use(express.urlencoded({ limit: "100mb", extended: true }));
+const { MongoClient } = require("mongodb");
+const { MONGO_URI } = process.env;
 
-// const upload = async (req, res) => {
-//   try {
-//     const fileStr = req.body.data;
+const options = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
-//     const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-//       upload_preset: "Mypicture", //name of the file in cloudinary
-//     });
+const HandlerPicture = async (req, res) => {
+  const { email } = req.params;
 
-//     console.info(uploadedResponse);
-//     res.status(200).json({ status: 200, message: "success" });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({
-//       status: 500,
-//       message: "Something went wrong getting all users 😭",
-//     });
-//   }
-// };
+  const { url } = req.body;
 
-// module.exports = { upload };
+  console.log(req.body);
+  const client = new MongoClient(MONGO_URI, options);
+
+  if (!url) {
+    return res.status(404).json({ message: "please add a picture" });
+  }
+  try {
+    await client.connect();
+
+    const db = client.db("beFriends");
+
+    // getting the current user
+    let currentUser = await db.collection("users").findOne({ email: email });
+
+    // updating the  data
+    const data = await db
+      .collection("users")
+      .updateOne({ email: email }, { $set: { ...req.body, currentUser } });
+
+    //taking the current user info updated
+    currentUser = await db.collection("users").findOne({ email: email });
+
+    res.status(200).json({ status: 200, currentUser: currentUser });
+
+    client.close();
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ status: 500, data: err.message });
+  }
+};
+module.exports = { HandlerPicture };

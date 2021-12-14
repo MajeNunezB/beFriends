@@ -9,18 +9,20 @@ const options = {
 };
 
 ///////////////////////////////
-// Function to Get all careers //
+// Function to Get all occupation//
 //////////////////////////////
-const getCareers = async (req, res) => {
+const getOccupation = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
   try {
     await client.connect();
 
     const db = client.db("beFriends");
-    const careers = await db.collection("careers").find({}).toArray();
+    const occupation = await db.collection("careers").find({}).toArray();
 
-    res.status(200).json({ status: 200, message: "Success!", data: careers });
+    res
+      .status(200)
+      .json({ status: 200, message: "Success!", data: occupation });
 
     client.close();
   } catch (error) {
@@ -31,4 +33,4 @@ const getCareers = async (req, res) => {
   }
 };
 
-module.exports = { getCareers };
+module.exports = { getOccupation };

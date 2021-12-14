@@ -5,6 +5,15 @@ const morgan = require("morgan");
 const PORT = 8000;
 // Important Handlers
 const { getLanguage } = require("./AllHandlers/handlerLanguage");
+const { HandlerPicture } = require("./AllHandlers/HandlerPicture");
+const { getOccupation } = require("./AllHandlers/handleOccupation");
+
+const {
+  sendFriendRequest,
+  confirmFriendRequest,
+  getPendingFriendsList,
+} = require("./AllHandlers/handleFriends");
+
 const {
   getUsers,
   getUserById,
@@ -33,21 +42,35 @@ app.use(function (req, res, next) {
 
 app.use(morgan("tiny"));
 app.use(express.static("./server/assets"));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/", express.static(__dirname + "/"));
 
-//API//
+//API
 
 //handle users
 app.get("/api/users", getUsers);
 app.get("/api/getUser/:id", getUserById);
 app.get("/api/userEmail/:email", getUserByEmail);
 app.get("/api/NewUser", getNewUser);
-app.patch("/api/addInfo/:email", addUserInfo);
+app.post("/api/addInfo/:email", addUserInfo);
 
 //handle languages
 app.get("/languages", getLanguage);
+
+//handle Careers
+app.get("/api/occupation", getOccupation);
+
+//handle languages
+app.get("/languages", getLanguage);
+
+// handle pictures
+app.post("/user/picture/:email", HandlerPicture);
+
+//Handle friend request
+app.put("/api/friends/add", sendFriendRequest);
+app.put("/api/friends/confirm", confirmFriendRequest);
+app.get("/api/friends/request", getPendingFriendsList);
 
 // Home Page endpoint
 app.get("/", (req, res) => {

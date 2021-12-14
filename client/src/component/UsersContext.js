@@ -1,13 +1,19 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useParams } from "react-router";
 
 export const UsersContext = createContext(null);
 
 export const UsersProvider = ({ children }) => {
-  const [userData, setUserData] = useState(null);
+  const [usersData, setUsersData] = useState(null);
   const [status, setStatus] = useState("loading");
   const [currentUser, setCurrentUser] = useState(null);
   const { user } = useAuth0();
+  const [refresh, setRefresh] = useState(false);
+
+  const [oneUser, setOneUser] = useState(null);
+
+  const { id } = useParams();
 
   // set user data to currentUser to fetch the info of one user
   useEffect(() => {
@@ -17,12 +23,13 @@ export const UsersProvider = ({ children }) => {
         .then((data) => {
           console.log(data.data);
           setCurrentUser(data.data);
-
           setStatus("idle");
         })
         .catch((err) => {
           setStatus("error");
         });
+    } else {
+      setCurrentUser(null);
     }
   }, [user]);
 
@@ -31,8 +38,21 @@ export const UsersProvider = ({ children }) => {
     fetch("/api/users")
       .then((res) => res.json())
       .then((user) => {
-        setUserData(user.data);
+        setUsersData(user.data);
         setStatus("idle");
+      })
+      .catch((err) => {
+        setStatus("error");
+      });
+  }, []);
+
+  //getting one user
+  React.useEffect(() => {
+    fetch(`/api/getUser/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setOneUser(data.data);
       })
       .catch((err) => {
         setStatus("error");
@@ -41,7 +61,16 @@ export const UsersProvider = ({ children }) => {
 
   return (
     <UsersContext.Provider
-      value={{ userData, status, setStatus, currentUser, setCurrentUser }}
+      value={{
+        usersData,
+        status,
+        setStatus,
+        currentUser,
+        setCurrentUser,
+        refresh,
+        setRefresh,
+        oneUser,
+      }}
     >
       {children}
     </UsersContext.Provider>

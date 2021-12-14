@@ -18,7 +18,10 @@ const getUsers = async (req, res) => {
   try {
     await client.connect();
 
+    // connect to the database
     const db = client.db("beFriends");
+
+    //find users
     const users = await db.collection("users").find({}).toArray();
 
     res.status(200).json({ status: 200, message: "Success!", data: users });
@@ -37,24 +40,30 @@ const getUsers = async (req, res) => {
 ///////////////////////////////////////
 
 const getUserById = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
   const client = new MongoClient(MONGO_URI, options);
 
-  const { id } = req.params;
-
   try {
+    //connect to the client
     await client.connect();
 
+    // connect to the database
     const db = client.db("beFriends");
-    let user = await db.collection("users").findOne({ _id: id });
 
-    res.status(200).json({ status: 200, message: "User found", data: user });
+    //find user _id
+    let user = await db.collection("users").findOne({ _id: id });
+    console.log(user);
+    if (user) {
+      res.status(200).json({ status: 200, message: "User found", data: user });
+    }
 
     client.close();
   } catch (error) {
     console.info(error);
     res.status(500).json({
       status: 500,
-      message: "Something went wrong getting all users 😭",
+      message: "Something went wrong getting user 😭",
     });
   }
 };
@@ -67,7 +76,7 @@ const getUserByEmail = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
   const { email } = req.params;
-  console.log(email);
+
   try {
     await client.connect();
 
@@ -92,7 +101,7 @@ const getUserByEmail = async (req, res) => {
 
 const getNewUser = async (req, res) => {
   const { email, name, city, age, address, occupation, bio, picture } =
-    req.body; // how to add a new picture from outside
+    req.body;
 
   const client = new MongoClient(MONGO_URI, options);
 
@@ -156,7 +165,6 @@ const addUserInfo = async (req, res) => {
   const { email } = req.params;
 
   const { name, city, age, address, occupation, bio, language } = req.body;
-
   console.log(req.body);
   const client = new MongoClient(MONGO_URI, options);
 
@@ -171,13 +179,13 @@ const addUserInfo = async (req, res) => {
       !city ||
       !age ||
       !address ||
-      !occupation ||
       !bio ||
-      !language
+      !language ||
+      !occupation
     ) {
       return res
-        .status(404)
-        .json({ status: 404, message: "please add all the fields " });
+        .status(400)
+        .json({ status: 400, message: "please add all the fields " });
     } else if (name.length <= 1) {
       return res.status(400).json({ status: 400, message: "Name too short" });
     } else if (address.length <= 5) {
@@ -191,15 +199,17 @@ const addUserInfo = async (req, res) => {
     }
 
     // getting the current user
-    const currentUser = await db.collection("users").findOne({ email: email });
-    console.log(currentUser);
+    let currentUser = await db.collection("users").findOne({ email: email });
 
     // updating the  data
     const data = await db
       .collection("users")
-      .updateOne({ email: email }, { $set: { ...req.body, currentUser } });
+      .updateOne({ email: email }, { $set: { ...req.body } });
 
-    res.status(200).json({ status: 200, data });
+    //taking the current user info updated
+    currentUser = await db.collection("users").findOne({ email: email });
+
+    res.status(200).json({ status: 200, currentUser: currentUser });
 
     client.close();
   } catch (err) {

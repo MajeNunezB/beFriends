@@ -19,13 +19,12 @@ const Button = styled.button`
   outline: none;
   background-color: transparent;
   border: none;
-  color: #fff;
-  padding: 10px 20px;
-  margin-left: 600px;
   cursor: pointer;
   position: relative;
-  font-weight: 700;
+  /* font-weight: 700; */
+  margin-top: 10px;
   opacity: 0.7;
+  padding: 10px;
 `;
 
 export default LogoutButton;

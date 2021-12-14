@@ -6,43 +6,41 @@ import { useHistory } from "react-router-dom";
 
 const Upload = () => {
   const history = useHistory();
-  const [image, setImage] = useState("");
-  const { currentUser, status } = useContext(UsersContext);
+  const [image1, setImage1] = useState("");
+  const { currentUser, status, setCurrentUser } = useContext(UsersContext);
   const [url, setUrl] = useState(null);
   const { user } = useAuth0();
-
-  useEffect(() => {
-    if (url) {
-      fetch(`/user/picture/${currentUser.email}`, {
-        method: "post",
-        header: { "content-type": "application/json" },
-        body: JSON.stringify({ url: url }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setUrl(data.url);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [url]);
+  console.log(user, currentUser);
 
   //function to send image to cloudinary and transform it into a URL
   const postDetails = (ev) => {
     ev.preventDefault();
     const data = new FormData();
-    data.append("file", image);
+    data.append("file", image1);
     data.append("upload_preset", "Mypicture");
     data.append("cloud-name", "drdbexqbf");
-    console.log(image);
+    console.log(image1);
     fetch("https://api.cloudinary.com/v1_1/drdbexqbf/image/upload", {
       method: "POST",
       body: data,
     })
       .then((res) => res.json())
       .then((data) => {
-        setUrl(data.url);
+        console.log(data.url);
+        // setUrl(data.url);
+        return fetch(`/user/picture/${user.email}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ url: data.url }),
+        });
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setCurrentUser(data.currentUser);
       })
       .catch((error) => {
         console.log(error);
@@ -61,13 +59,14 @@ const Upload = () => {
         <Input
           type="file"
           onChange={(e) => {
-            setImage(e.target.files[0]);
+            setImage1(e.target.files[0]);
             console.log(e.target.files[0]);
           }}
         />
         <Button type="submit">submit</Button>
       </Form>
-      <Img src={url && url} />
+
+      <img src={url && url} />
     </div>
   );
 };
@@ -77,10 +76,12 @@ const Form = styled.form`
   justify-content: center;
 `;
 
-const Img = styled.img`
-  width: 200px;
-  height: 200px;
-`;
+// const Img = styled.img`
+//   width: 200px;
+//   height: 200px;
+//   margin-top: 8px;
+//   vertical-align: middle;
+// `;
 
 const Input = styled.input`
   background-color: white;
@@ -96,10 +97,18 @@ const Button = styled.button`
   font-weight: 400;
   border-radius: 2px;
   border: 1px solid black;
-  width: 100px;
+  width: 90px;
 `;
 
-export default Upload;
+// const Row = styled.div`
+//   display: flex;
+//   flex-wrap: wrap;
+//   padding: 0 4px;
+// `;
 
-//FileReader.readAsDataURL()
-// The readAsDataURL method is used to read the contents of the specified Blob or File. When the read operation is finished, the readyState becomes DONE, and the loadend is triggered. At that time, the result attribute contains the data as a URL representing the file's data as a base64 encoded string.
+// const Column = styled.div`
+//   flex: 50%;
+//   padding: 0 4px;
+// `;
+
+export default Upload;

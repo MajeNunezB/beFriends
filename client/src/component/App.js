@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import Header from "./Header";
 import EditProfile from "./EditProfile";
 import UsersContext from "./UsersContext";
+import UserDetail from "./UserDetail";
 
 const App = () => {
   const { currentUser } = useContext(UsersContext);
@@ -28,7 +29,11 @@ const App = () => {
                 <EditProfile />
               </Route>
               <Route path="/user/profile">
-                {currentUser ? <Profile /> : <Redirect to="/" />}
+                <Profile />
+                {/* {currentUser ? <Profile /> : <Redirect to="/" />} */}
+              </Route>
+              <Route path="/api/getUser/:id">
+                <UserDetail />
               </Route>
             </Switch>
           </BlueBox>

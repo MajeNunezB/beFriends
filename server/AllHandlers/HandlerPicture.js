@@ -10,15 +10,15 @@ const options = {
 
 const HandlerPicture = async (req, res) => {
   const { email } = req.params;
-
+  console.log(req.body);
+  console.log(req.params);
   const { url } = req.body;
 
-  console.log(req.body);
   const client = new MongoClient(MONGO_URI, options);
 
-  if (!url) {
-    return res.status(404).json({ message: "please add a picture" });
-  }
+  // if (!url) {
+  //   return res.status(404).json({ message: "please add a picture" });
+  // }
   try {
     await client.connect();
 
@@ -30,11 +30,11 @@ const HandlerPicture = async (req, res) => {
     // updating the  data
     const data = await db
       .collection("users")
-      .updateOne({ email: email }, { $set: { ...req.body, currentUser } });
+      .updateOne({ email: email }, { $set: { avatarUrl: url } });
 
     //taking the current user info updated
     currentUser = await db.collection("users").findOne({ email: email });
-
+    console.log(occupation);
     res.status(200).json({ status: 200, currentUser: currentUser });
 
     client.close();

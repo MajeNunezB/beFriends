@@ -22,10 +22,3 @@ ReactDOM.render(
 
   document.getElementById("root")
 );
-
-// <Auth0Provider
-//     domain="dev-1m1ofvm9.us.auth0.com"
-//     clientId="jYf9iZk3UezvoGSbI9UTjvVrd1vbCEGr"
-//     redirectUri={window.location.origin}
-//   >
-//   </Auth0Provider>

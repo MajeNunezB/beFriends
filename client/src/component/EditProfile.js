@@ -15,6 +15,7 @@ const EditProfile = () => {
     setRefresh,
   } = useContext(UsersContext);
   const [language, setLanguage] = useState(null);
+  const [occupation, setOccupation] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
   const { user } = useAuth0();
@@ -32,10 +33,23 @@ const EditProfile = () => {
 
   //fetch to get list of different languages in quebec
   useEffect(() => {
+    fetch("/api/occupation")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setOccupation(data.data);
+        setStatus("idle");
+      })
+      .catch((err) => {
+        setStatus("error");
+      });
+  }, []);
+
+  //fetch to get list of different languages in quebec
+  useEffect(() => {
     fetch("/languages")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.data);
         setLanguage(data.data);
 
         setStatus("idle");
@@ -58,7 +72,6 @@ const EditProfile = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status === 200) {
           // window.localStorage.setItem("reservation", JSON.stringify(data.data));
           setCurrentUser(data.currentUser);
@@ -80,103 +93,126 @@ const EditProfile = () => {
     });
   };
 
-  console.log(userInfo);
-
   if (status === "loading") {
     return "loading...";
   }
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit}>
-        <Title>Profile information</Title>
-        <Label>
-          <Span>Name</Span>
-          <Input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            value={userInfo?.name}
-            // required
-          />
-        </Label>
-        <Label>
-          <Span>City</Span>
-          <Input
-            type="city"
-            name="city"
-            onChange={handleChange}
-            value={userInfo?.city}
-            // required
-          />
-        </Label>
-        <Label>
-          <Span>Occupation</Span>
-          <Input
-            type="text"
-            name="occupation"
-            onChange={handleChange}
-            value={userInfo?.occupation}
-            // required
-          />
-        </Label>
-        <Label>
-          <Span>Age</Span>
-          <Input
-            type="text"
-            name="age"
-            onChange={handleChange}
-            value={userInfo?.age}
-            // required
-          />
-        </Label>
-        <Label>
-          <Span>Address</Span>
-          <Input
-            type="text"
-            name="address"
-            onChange={handleChange}
-            value={userInfo?.address}
-            // required
-          />
-        </Label>
-        <Label>
-          <Span>Bio</Span>
-          <Input
-            type="text"
-            name="bio"
-            onChange={handleChange}
-            value={userInfo?.bio}
-            // required
-          />
-        </Label>
-        <Div>
+    <Div2>
+      <Div1>
+        <Form onSubmit={handleSubmit}>
+          <Title>Profile information</Title>
           <Label>
-            <Span>Language</Span>
-            <div>
-              <Select
-                name="language"
-                onChange={(ev) => {
-                  handleChange(ev);
-                }}
-              >
-                <option value="default">Choose your Language</option>
-                {language &&
-                  language.map((ele, index) => {
-                    return (
-                      <option value={ele.languages} key={index}>
-                        {ele.languages}
-                      </option>
-                    );
-                  })}
-              </Select>
-            </div>
+            <Span>Name</Span>
+            <Input
+              type="text"
+              name="name"
+              onChange={handleChange}
+              value={userInfo?.name}
+              // required
+            />
           </Label>
-        </Div>
-        <Button type="submit">Save</Button>
-        {errorMessage && <P> {errorMessage} </P>}
-      </Form>
-    </div>
+          <Label>
+            <Span>City</Span>
+            <Input
+              type="city"
+              name="city"
+              onChange={handleChange}
+              value={userInfo?.city}
+              // required
+            />
+          </Label>
+          {/* <Label>
+            <Span>Occupation</Span>
+            <Input
+              type="text"
+              name="occupation"
+              onChange={handleChange}
+              value={userInfo?.occupation}
+              // required
+            />
+          </Label> */}
+          <Div>
+            <Label>
+              <Span>Occupation</Span>
+              <div>
+                <Select
+                  name="occupation"
+                  onChange={(ev) => {
+                    handleChange(ev);
+                  }}
+                >
+                  <option value="default">Choose your occupation</option>
+                  {occupation &&
+                    occupation?.map((ele, index) => {
+                      return (
+                        <option value={ele.Careers} key={index}>
+                          {ele.Careers}
+                        </option>
+                      );
+                    })}
+                </Select>
+              </div>
+            </Label>
+          </Div>
+          <Label>
+            <Span>Age</Span>
+            <Input
+              type="text"
+              name="age"
+              onChange={handleChange}
+              value={userInfo?.age}
+              // required
+            />
+          </Label>
+          <Label>
+            <Span>Address</Span>
+            <Input
+              type="text"
+              name="address"
+              onChange={handleChange}
+              value={userInfo?.address}
+              // required
+            />
+          </Label>
+          <Label>
+            <Span>Bio</Span>
+            <Input
+              type="text"
+              name="bio"
+              onChange={handleChange}
+              value={userInfo?.bio}
+              // required
+            />
+          </Label>
+          <Div>
+            <Label>
+              <Span>Language</Span>
+              <div>
+                <Select
+                  name="language"
+                  onChange={(ev) => {
+                    handleChange(ev);
+                  }}
+                >
+                  <option value="default">Choose your Language</option>
+                  {language &&
+                    language?.map((ele, index) => {
+                      return (
+                        <option value={ele.languages} key={index}>
+                          {ele.languages}
+                        </option>
+                      );
+                    })}
+                </Select>
+              </div>
+            </Label>
+          </Div>
+          <Button type="submit">Save</Button>
+          {errorMessage && <P> {errorMessage} </P>}
+        </Form>
+      </Div1>
+    </Div2>
   );
 };
 
@@ -226,6 +262,20 @@ const Button = styled.button`
 `;
 const Div = styled.div`
   position: relative;
+`;
+const Div2 = styled.div`
+  background-color: #dcdfe5;
+  margin-top: -60px;
+`;
+
+const Div1 = styled.div`
+  max-width: 850px;
+  margin: 30px auto 30px;
+  padding: 0 !important;
+  width: 90%;
+  margin-top: 60px;
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const Select = styled.select`

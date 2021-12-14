@@ -6,7 +6,7 @@ import HomePicGrid from "./HomePicGrid";
 
 const Home = () => {
   //example
-  const { userData, status, currentUser } = React.useContext(UsersContext);
+  const { usersData, status, currentUser } = React.useContext(UsersContext);
 
   if (status === "loading") {
     return "loading...";
@@ -16,9 +16,9 @@ const Home = () => {
       <Background>
         <CarouselDiv>
           <Carousel>
-            {userData &&
-              userData.map((user) => {
-                return <HomePicGrid key={user._id} user={user} />;
+            {usersData &&
+              usersData.map((user) => {
+                return <HomePicGrid key={user._id} user={user} id={user._id} />;
               })}
           </Carousel>
         </CarouselDiv>
@@ -32,25 +32,34 @@ const Background = styled.div`
   opacity: 0.8;
   background-size: cover;
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+
+  @media screen and (min-width: 800px) {
+    head {
+      min-width: 800px;
+      min-height: 800px;
+    }
+  }
 `;
 
 const CarouselDiv = styled.div`
   margin: auto;
   outline: none;
-  width: 50%;
-  height: 95vh;
+  width: 70%;
+  height: 100vh;
   background-color: rgba(208, 77, 145, 0.4);
   margin-left: 880px;
-  padding: 80px;
+  align-items: center;
   margin-inline: auto;
+  padding-top: 15px;
+  position: relative;
 
-  /* box-shadow: inset 0 0 1px 0px #be95c4; */
-  /* border: 3px solid red; */
-
-  @media screen and (min-width: 576px) {
+  @media screen and (min-width: 800px) {
     head {
-      min-width: 400px;
-      min-height: 400px;
+      min-width: 900px;
+      min-height: 900px;
+      margin-inline: auto;
     }
   }
 `;

@@ -12,7 +12,6 @@ export const UsersProvider = ({ children }) => {
   const [refresh, setRefresh] = useState(false);
 
   const [oneUser, setOneUser] = useState(null);
-
   const { id } = useParams();
 
   // set user data to currentUser to fetch the info of one user

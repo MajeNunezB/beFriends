@@ -26,8 +26,8 @@ const Upload = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.url);
-        // setUrl(data.url);
+        // console.log(data.url);
+        setUrl(data.url);
         return fetch(`/user/picture/${user.email}`, {
           method: "POST",
           headers: {
@@ -39,7 +39,7 @@ const Upload = () => {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setCurrentUser(data.currentUser);
       })
       .catch((error) => {

@@ -11,9 +11,6 @@ export const UsersProvider = ({ children }) => {
   const { user } = useAuth0();
   const [refresh, setRefresh] = useState(false);
 
-  const [oneUser, setOneUser] = useState(null);
-  const { id } = useParams();
-
   // set user data to currentUser to fetch the info of one user
   useEffect(() => {
     if (user) {
@@ -45,19 +42,6 @@ export const UsersProvider = ({ children }) => {
       });
   }, []);
 
-  //getting one user
-  React.useEffect(() => {
-    fetch(`/api/getUser/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setOneUser(data.data);
-      })
-      .catch((err) => {
-        setStatus("error");
-      });
-  }, []);
-
   return (
     <UsersContext.Provider
       value={{
@@ -68,7 +52,6 @@ export const UsersProvider = ({ children }) => {
         setCurrentUser,
         refresh,
         setRefresh,
-        oneUser,
       }}
     >
       {children}

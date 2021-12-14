@@ -4,38 +4,38 @@ import { useParams } from "react-router";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Friends = ({ friend }) => {
-  const { status, currentUser } = useContext(UsersContext);
+const PendingFriend = ({ friendPending }) => {
   const [oneUser, setOneUser] = useState(null);
+  const { status } = useContext(UsersContext);
 
-  //   console.log(friend);
+  console.log(friendPending);
+  //fetch to get the pendding user data
 
-  //getting one user
   React.useEffect(() => {
-    fetch(`/api/getUser/${friend}`)
+    fetch(`/api/getUser/${friendPending}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setOneUser(data.data);
       })
       .catch((err) => {
         console.log("error", err);
       });
   }, []);
-
-  //   console.log(oneUser);
+  console.log(oneUser);
 
   if (status === "loading") {
     return "loading...";
   }
   return (
-    <>
+    <div>
       {oneUser && (
         <DivFriends>
           <Img src={oneUser.avatarUrl} />
-          <Name>{oneUser.name}</Name>
+          <Name>{`${oneUser.name}would like to be your friend`}</Name>
         </DivFriends>
       )}
-    </>
+    </div>
   );
 };
 
@@ -43,6 +43,7 @@ const DivFriends = styled(Link)`
   text-decoration: none;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 `;
 
 const Img = styled.img`
@@ -51,14 +52,16 @@ const Img = styled.img`
   margin-top: 20px;
   margin-left: 100px;
   border: 1px solid #fb5607;
+  filter: grayscale(80%);
   border-radius: 50%;
 `;
 
 const Name = styled.p`
   width: 150px;
   font-size: 1em;
-  color: black;
+  color: #bbb;
   text-align: center;
   font-size: 1em;
 `;
-export default Friends;
+
+export default PendingFriend;

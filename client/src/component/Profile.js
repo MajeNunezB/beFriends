@@ -4,6 +4,7 @@ import styled from "styled-components";
 import UsersContext from "./UsersContext";
 import { Link } from "react-router-dom";
 import Friends from "./Friends";
+import PendingFriend from "./PendingFriend";
 
 const Profile = () => {
   const { currentUser, status } = useContext(UsersContext);
@@ -11,28 +12,22 @@ const Profile = () => {
   const [pendingList, setPendingList] = useState(null);
 
   /// get the list of pendingRequests for current user to confirm query=friends/request?email=harry@gmail.com
-  const pendingRequests = (ev) => {
-    ev.stopPropagation();
-    //params to get the current user and its friends
-    const params = {
-      email: currentUser.email,
-    };
-
-    const query = Object.keys(params);
-
-    fetch(`/api/friends/request?${query}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("list - ", data);
-        setPendingList(data);
-      })
-      .catch((err) => {
-        console.log("error ", err);
-      });
-  };
+  //api/friends/1/getPendingFriends
+  useEffect(() => {
+    if (currentUser) {
+      fetch(`/api/friends/request?email=${currentUser.email}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("list - ", data);
+          setPendingList(data.data);
+        })
+        .catch((err) => {
+          console.log("error ", err);
+        });
+    }
+  }, [currentUser]);
 
   console.log(pendingList);
-  //api/friends/1/getPendingFriends
 
   if (status === "loading") {
     return "loading...";
@@ -73,9 +68,21 @@ const Profile = () => {
           <FriendList>
             {currentUser &&
               currentUser.friends.map((friend) => {
-                return <Friends key={friend._id} friend={friend} />;
+                return <Friends key={friend} friend={friend} />;
               })}
           </FriendList>
+
+          <div>
+            {pendingList &&
+              pendingList.map((friendPending) => {
+                return (
+                  <PendingFriend
+                    key={friendPending}
+                    friendPending={friendPending}
+                  />
+                );
+              })}
+          </div>
         </Container>
       </Div1>
     </>

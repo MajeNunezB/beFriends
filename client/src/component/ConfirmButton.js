@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
+import UsersContext from "./UsersContext";
 
-const ConfirmButton = () => {
-  const [confirmRequest, setConfirmRequest] = useState(null);
+const ConfirmButton = ({ friendPending, handleConfirmFriend }) => {
+  console.log("pending friend in confirm button - ", friendPending);
 
   return (
     <div>
-      <Button>Confirm</Button>
+      <Button onClick={handleConfirmFriend}>Confirm</Button>
     </div>
   );
 };
 
 const Button = styled.button`
   align-items: center;
-  margin-left: 180px;
+  margin-left: 20px;
   @extend .center-content;
-  padding: 10px 30px;
-  font-size: 24px;
+  padding: 10px 10px;
+  font-size: 18px;
   cursor: pointer;
 
   border-radius: 7px;

@@ -11,6 +11,12 @@ const Home = () => {
   if (status === "loading") {
     return "loading...";
   }
+
+  //If the current user is present in usersData then filter it out
+  // let updatedUsers = [];
+  // if (currentUser) {
+  //   updatedUsers = usersData.map((user) => user["_id"] !== currentUser["_id"]);
+  // }
   return (
     <div>
       <Background>
@@ -18,7 +24,11 @@ const Home = () => {
           <Carousel>
             {usersData &&
               usersData.map((user) => {
-                return <HomePicGrid key={user._id} user={user} id={user._id} />;
+                if (user["_id"] !== currentUser?._id) {
+                  return (
+                    <HomePicGrid key={user._id} user={user} id={user._id} />
+                  );
+                }
               })}
           </Carousel>
         </CarouselDiv>

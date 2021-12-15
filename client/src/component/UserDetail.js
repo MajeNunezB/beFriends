@@ -43,7 +43,7 @@ const UserDetail = () => {
             </Info>
             <Biodiv>
               <Bio>{oneUser?.bio}</Bio>
-              <Bio>{`I am ${oneUser?.age} old, I speake ${oneUser?.language} and my hobbies are ...`}</Bio>
+              <Bio>{`I am ${oneUser?.age} old, I speake ${oneUser?.language}, I work in ${oneUser?.occupation} and my hobbies are ...`}</Bio>
             </Biodiv>
           </Div1>
           <Friends />

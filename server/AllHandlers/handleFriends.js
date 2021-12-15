@@ -35,21 +35,27 @@ const sendFriendRequest = async (req, res) => {
     //adding a pending request to the user data
     const { pendingFriends: existingPendingFriends = [] } = wholeUser;
 
-    //updating the current user pending list with the new friendId
-    const result = await db
-      .collection("users")
-      .updateOne(
-        { email: email },
-        { $set: { pendingFriends: [...existingPendingFriends, friendId] } }
-      );
+    const isExists = existingPendingFriends.includes(friendId);
 
-    console.log("did the new friend id get added? ", result);
+    if (!isExists) {
+      //updating the current user pending list with the new friendId
+      const result = await db
+        .collection("users")
+        .updateOne(
+          { email: email },
+          { $set: { pendingFriends: [...existingPendingFriends, friendId] } }
+        );
 
-    //if the friendId is pending then status(200)
-    res.status(200).json({
-      status: 200,
-      message: "Friend successfully added",
-    });
+      console.log("did the new friend id get added? ", result);
+
+      //if the friendId is pending then status(200)
+      res.status(200).json({
+        status: 200,
+        message: "Friend successfully added",
+      });
+    } else {
+      res.status(400).json({ status: 400, message: "Friend is already added" });
+    }
 
     //otherwise error
     client.close();

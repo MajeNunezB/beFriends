@@ -15,6 +15,7 @@ const EditProfile = () => {
     setRefresh,
   } = useContext(UsersContext);
   const [language, setLanguage] = useState(null);
+  const [hobbies, setHobbies] = useState(null);
   const [occupation, setOccupation] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
   const history = useHistory();
@@ -30,6 +31,21 @@ const EditProfile = () => {
     bio: currentUser?.bio,
     language: currentUser?.language,
   });
+
+  //fetch to get list of different languages in quebec
+  useEffect(() => {
+    fetch("/hobbies")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setHobbies(data.data);
+
+        setStatus("idle");
+      })
+      .catch((err) => {
+        setStatus("error");
+      });
+  }, []);
 
   //fetch to get list of different languages in quebec
   useEffect(() => {
@@ -122,16 +138,6 @@ const EditProfile = () => {
               // required
             />
           </Label>
-          {/* <Label>
-            <Span>Occupation</Span>
-            <Input
-              type="text"
-              name="occupation"
-              onChange={handleChange}
-              value={userInfo?.occupation}
-              // required
-            />
-          </Label> */}
           <Div>
             <Label>
               <Span>Occupation</Span>

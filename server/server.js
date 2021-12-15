@@ -7,6 +7,8 @@ const PORT = 8000;
 const { getLanguage } = require("./AllHandlers/handlerLanguage");
 const { HandlerPicture } = require("./AllHandlers/HandlerPicture");
 const { getOccupation } = require("./AllHandlers/handleOccupation");
+const { getReligion } = require("./AllHandlers/HandleReligion");
+const { getHobbies } = require("./AllHandlers/HandleHobbies");
 
 const {
   sendFriendRequest,
@@ -57,13 +59,12 @@ app.post("/api/addInfo/:email", addUserInfo);
 
 //handle languages
 app.get("/languages", getLanguage);
-
 //handle Careers
 app.get("/api/occupation", getOccupation);
-
-//handle languages
-app.get("/languages", getLanguage);
-
+//handle religion
+app.get("/religion", getReligion);
+//handle hobbies
+app.get("/hobbies", getHobbies);
 // handle pictures
 app.post("/user/picture/:email", HandlerPicture);
 

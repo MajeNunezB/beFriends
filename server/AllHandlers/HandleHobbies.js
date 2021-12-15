@@ -9,18 +9,18 @@ const options = {
 };
 
 ///////////////////////////////
-// Function to Get all religion //
+// Function to Get all hobbies //
 //////////////////////////////
-const getReligion = async (req, res) => {
+const getHobbies = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
 
   try {
     await client.connect();
 
     const db = client.db("beFriends");
-    const religion = await db.collection("religion").find({}).toArray();
+    const hobbies = await db.collection("hobbies").find({}).toArray();
 
-    res.status(200).json({ status: 200, message: "Success!", data: religion });
+    res.status(200).json({ status: 200, message: "Success!", data: hobbies });
 
     client.close();
   } catch (error) {
@@ -31,4 +31,4 @@ const getReligion = async (req, res) => {
   }
 };
 
-module.exports = { getReligion };
+module.exports = { getHobbies };

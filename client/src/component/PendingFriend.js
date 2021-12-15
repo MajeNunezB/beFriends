@@ -3,10 +3,13 @@ import UsersContext from "./UsersContext";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import ConfirmButton from "./ConfirmButton";
+import { useHistory } from "react-router-dom";
 
 const PendingFriend = ({ friendPending }) => {
   const [oneUser, setOneUser] = useState(null);
-  const { status } = useContext(UsersContext);
+  const { currentUser, status } = useContext(UsersContext);
+  const history = useHistory();
 
   console.log(friendPending);
   //fetch to get the pendding user data
@@ -24,6 +27,32 @@ const PendingFriend = ({ friendPending }) => {
   }, []);
   console.log(oneUser);
 
+  const handleConfirmFriend = () => {
+    const params = {
+      email: currentUser.email,
+      confirmationFriendId: friendPending,
+    };
+
+    const query = Object.keys(params)
+      .map(
+        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(params[key])
+      )
+      .join("&");
+
+    fetch(`/api/friends/confirm?${query}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        alert(data.message);
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   if (status === "loading") {
     return "loading...";
   }
@@ -32,7 +61,11 @@ const PendingFriend = ({ friendPending }) => {
       {oneUser && (
         <DivFriends>
           <Img src={oneUser.avatarUrl} />
-          <Name>{`${oneUser.name}would like to be your friend`}</Name>
+          <Name>{`Confirm ${oneUser.name}'s friend request`}</Name>
+          <ConfirmButton
+            friendPending={friendPending}
+            handleConfirmFriend={handleConfirmFriend}
+          ></ConfirmButton>
         </DivFriends>
       )}
     </div>

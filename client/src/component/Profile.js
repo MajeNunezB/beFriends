@@ -15,6 +15,7 @@ const Profile = () => {
   //api/friends/1/getPendingFriends
   useEffect(() => {
     if (currentUser) {
+      console.log("is it calling after confirming a friend?");
       fetch(`/api/friends/request?email=${currentUser.email}`)
         .then((res) => res.json())
         .then((data) => {

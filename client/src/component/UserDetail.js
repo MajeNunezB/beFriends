@@ -2,29 +2,30 @@ import React, { useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import UsersContext from "./UsersContext";
+import Friends from "./Friends";
 
 const UserDetail = () => {
-  const { usersData, status, setStatus, currentUser, oneUser } =
+  const { usersData, status, setStatus, currentUser } =
     React.useContext(UsersContext);
 
+  const [oneUser, setOneUser] = useState(null);
+
+  const { id } = useParams();
+  console.log(id);
+
+  React.useEffect(() => {
+    fetch(`/api/getUser/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setOneUser(data.data);
+      })
+      .catch((err) => {
+        setStatus("error");
+      });
+  }, []);
+
   console.log(oneUser);
-  // const [oneUser, setOneUser] = useState(null);
-
-  // const { id } = useParams();
-
-  // React.useEffect(() => {
-  //   fetch(`/api/getUser/${id}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setOneUser(data.data);
-  //     })
-  //     .catch((err) => {
-  //       setStatus("error");
-  //     });
-  // }, []);
-
-  // console.log(oneUser);
 
   if (status === "loading") {
     return "loading...";
@@ -45,6 +46,8 @@ const UserDetail = () => {
               <Bio>{`I am ${oneUser?.age} old, I speake ${oneUser?.language} and my hobbies are ...`}</Bio>
             </Biodiv>
           </Div1>
+          <Friends />
+          {/* why friend are no rendering */}
         </>
       )}
     </div>

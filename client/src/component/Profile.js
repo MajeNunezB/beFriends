@@ -45,7 +45,6 @@ const Profile = () => {
               <Img src="https://res.cloudinary.com/drdbexqbf/image/upload/v1639065686/samples/Mypicture/no-user-image-icon-27_iukhui.png" />
             )}
           </PhotoDiv>
-
           <Div>
             <Nav to="/">Friends</Nav>
             <Nav to="/editProfile">Edit Profile</Nav>
@@ -65,14 +64,12 @@ const Profile = () => {
           <div>
             <Upload />
           </div>
+
           <FriendList>
             {currentUser &&
               currentUser.friends.map((friend) => {
                 return <Friends key={friend} friend={friend} />;
               })}
-          </FriendList>
-
-          <div>
             {pendingList &&
               pendingList.map((friendPending) => {
                 return (
@@ -82,7 +79,7 @@ const Profile = () => {
                   />
                 );
               })}
-          </div>
+          </FriendList>
         </Container>
       </Div1>
     </>
@@ -93,7 +90,6 @@ const Div1 = styled.div`
   background-color: #f0e6ef;
   margin-top: -35px;
 `;
-
 const Container = styled.div`
   max-width: 1250px;
   margin: 30px auto 30px;
@@ -103,11 +99,19 @@ const Container = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
 `;
 
-const FriendList = styled.div`
+const FriendList = styled.h1`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
+
+// const FriendTitle = styled.div`
+//   margin-top: 10px;
+//   font-family: "Open Sans";
+
+//   font-size: 18pt;
+//   color: #777;
+// `;
 
 const PicBack = styled.div`
   background: #eee;

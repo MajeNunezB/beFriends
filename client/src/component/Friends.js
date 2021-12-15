@@ -8,8 +8,6 @@ const Friends = ({ friend }) => {
   const { status, currentUser } = useContext(UsersContext);
   const [oneUser, setOneUser] = useState(null);
 
-  //   console.log(friend);
-
   //getting one user
   React.useEffect(() => {
     fetch(`/api/getUser/${friend}`)
@@ -43,22 +41,22 @@ const DivFriends = styled(Link)`
   text-decoration: none;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 `;
 
 const Img = styled.img`
-  width: 150px;
-  height: 150px;
-  margin-top: 20px;
-  margin-left: 100px;
+  width: 100px;
+  height: 100px;
+  margin-top: 10px;
   border: 1px solid #fb5607;
   border-radius: 50%;
 `;
 
 const Name = styled.p`
   width: 150px;
-  font-size: 1em;
+  font-size: 16px;
   color: black;
   text-align: center;
-  font-size: 1em;
+  padding: 10px;
 `;
 export default Friends;

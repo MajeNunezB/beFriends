@@ -42,26 +42,26 @@ const PendingFriend = ({ friendPending }) => {
 const DivFriends = styled(Link)`
   text-decoration: none;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 10px;
 `;
 
 const Img = styled.img`
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   margin-top: 20px;
-  margin-left: 100px;
   border: 1px solid #fb5607;
-  filter: grayscale(80%);
+  filter: grayscale(100%);
   border-radius: 50%;
 `;
 
 const Name = styled.p`
-  width: 150px;
-  font-size: 1em;
+  width: 100px;
+  font-size: 14px;
   color: #bbb;
   text-align: center;
-  font-size: 1em;
 `;
 
 export default PendingFriend;

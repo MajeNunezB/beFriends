@@ -8,6 +8,7 @@ import Header from "./Header";
 import EditProfile from "./EditProfile";
 import UsersContext from "./UsersContext";
 import UserDetail from "./UserDetail";
+import Friends from "./Friends";
 
 const App = () => {
   const { currentUser } = useContext(UsersContext);
@@ -35,6 +36,9 @@ const App = () => {
               <Route path="/api/getUser/:id">
                 <UserDetail />
               </Route>
+              {/* <Route path="/api/friends">
+                <Friends />
+              </Route> */}
             </Switch>
           </BlueBox>
         </BrowserRouter>

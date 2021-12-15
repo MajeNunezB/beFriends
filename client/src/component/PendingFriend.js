@@ -27,6 +27,7 @@ const PendingFriend = ({ friendPending }) => {
   }, []);
   console.log(oneUser);
 
+  //friend confirmation Button
   const handleConfirmFriend = () => {
     const params = {
       email: currentUser.email,
@@ -56,6 +57,7 @@ const PendingFriend = ({ friendPending }) => {
   if (status === "loading") {
     return "loading...";
   }
+
   return (
     <div>
       {oneUser && (
@@ -72,7 +74,7 @@ const PendingFriend = ({ friendPending }) => {
   );
 };
 
-const DivFriends = styled(Link)`
+const DivFriends = styled.div`
   text-decoration: none;
   display: flex;
   flex-direction: column;

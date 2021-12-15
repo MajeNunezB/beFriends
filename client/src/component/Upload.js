@@ -2,10 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import UsersContext from "./UsersContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useHistory } from "react-router-dom";
 
 const Upload = () => {
-  const history = useHistory();
   const [image1, setImage1] = useState("");
   const { currentUser, status, setCurrentUser } = useContext(UsersContext);
   const [url, setUrl] = useState(null);
@@ -18,12 +16,15 @@ const Upload = () => {
     const data = new FormData();
     data.append("file", image1);
     data.append("upload_preset", "Mypicture");
-    data.append("cloud-name", "drdbexqbf");
-    console.log(image1);
-    fetch("https://api.cloudinary.com/v1_1/drdbexqbf/image/upload", {
-      method: "POST",
-      body: data,
-    })
+    data.append("cloud-name", `${process.env.REACT_APP_CLOUDINARY_NAME}`);
+    console.log(process.env);
+    fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUDINARY_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: data,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data.url);
@@ -39,7 +40,7 @@ const Upload = () => {
       })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setCurrentUser(data.currentUser);
       })
       .catch((error) => {
@@ -66,7 +67,7 @@ const Upload = () => {
         <Button type="submit">submit</Button>
       </Form>
 
-      <img src={url && url} />
+      {/* <img src={url && url} /> */}
     </div>
   );
 };

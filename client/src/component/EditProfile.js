@@ -201,7 +201,7 @@ const EditProfile = () => {
                     handleChange(ev);
                   }}
                 >
-                  <option value="default">Choose your Language</option>
+                  <option value="default">Choose your first Language</option>
                   {language &&
                     language?.map((ele, index) => {
                       return (
@@ -269,6 +269,7 @@ const Button = styled.button`
 const Div = styled.div`
   position: relative;
 `;
+
 const Div2 = styled.div`
   background-color: #dcdfe5;
   margin-top: -60px;

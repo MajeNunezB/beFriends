@@ -91,6 +91,7 @@ const Div1 = styled.div`
   background-color: #f0e6ef;
   margin-top: -35px;
 `;
+
 const Container = styled.div`
   max-width: 1250px;
   margin: 30px auto 30px;
@@ -105,14 +106,6 @@ const FriendList = styled.h1`
   align-items: center;
   justify-content: center;
 `;
-
-// const FriendTitle = styled.div`
-//   margin-top: 10px;
-//   font-family: "Open Sans";
-
-//   font-size: 18pt;
-//   color: #777;
-// `;
 
 const PicBack = styled.div`
   background: #eee;

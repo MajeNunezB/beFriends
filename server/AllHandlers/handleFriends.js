@@ -13,7 +13,7 @@ const options = {
 // id = 6 sends a friend request to harry
 const sendFriendRequest = async (req, res) => {
   //getting current user and friendId
-  const { email, friendId } = req.query;
+  const { currentUserId, email, friendId } = req.query;
 
   console.log("email received : ", email);
   console.log("friendId received : ", friendId);
@@ -30,21 +30,22 @@ const sendFriendRequest = async (req, res) => {
     const db = client.db("beFriends");
 
     //getting into the current user data
-    let wholeUser = await db.collection("users").findOne({ email: email });
+    // let wholeUser = await db.collection("users").findOne({ email: email });
+    let wholeFriendId = await db.collection("users").findOne({ _id: friendId });
 
     //adding a pending request to the user data
-    const { pendingFriends: existingPendingFriends = [] } = wholeUser;
+    const { pendingFriends: existingPendingFriends = [] } = wholeFriendId; //wholeUser
 
-    const isExists = existingPendingFriends.includes(friendId);
+    // const isExists = existingPendingFriends.includes(friendId);
+    const isExists = existingPendingFriends.includes(currentUserId);
 
     if (!isExists) {
       //updating the current user pending list with the new friendId
-      const result = await db
-        .collection("users")
-        .updateOne(
-          { email: email },
-          { $set: { pendingFriends: [...existingPendingFriends, friendId] } }
-        );
+      const result = await db.collection("users").updateOne(
+        { _id: friendId },
+        // { email: email },
+        { $set: { pendingFriends: [...existingPendingFriends, currentUserId] } } //friendId
+      );
 
       console.log("did the new friend id get added? ", result);
 
@@ -74,8 +75,8 @@ const confirmFriendRequest = async (req, res) => {
   //email=currentUser    confirmationFriendId= pending request waiting to be confirmed
   const { confirmationFriendId, email } = req.query;
 
-  console.log("email received : ", email);
-  console.log("confirmationFriendId received : ", confirmationFriendId);
+  // console.log("email received : ", email);
+  // console.log("confirmationFriendId received : ", confirmationFriendId);
 
   // Step 1: Figure out how many pending requests currentUser has
   // Step 2: match the confirmation friend request id with pending requests of current user

@@ -35,36 +35,49 @@ const UserDetail = () => {
       {oneUser && (
         <>
           <Div1>
+            <PicBack></PicBack>
             <PhotoDiv>
               <Img src={oneUser?.avatarUrl} />
             </PhotoDiv>
             <Info>
               <Name>{oneUser?.name}</Name>
+              <Email>{oneUser?.email}</Email>
             </Info>
             <Biodiv>
               <Bio>{oneUser?.bio}</Bio>
               <Bio>{`I am ${oneUser?.age} old, I speake ${oneUser?.language}, I work in ${oneUser?.occupation} and my hobbies are ...`}</Bio>
             </Biodiv>
+            <Title>{`${oneUser.name} is friend with:`}</Title>
+            <FriendList>
+              {currentUser &&
+                currentUser.friends.map((friend) => {
+                  return <Friends key={friend} friend={friend} />;
+                })}
+            </FriendList>
           </Div1>
-          <Friends />
-          {/* why friend are no rendering */}
         </>
       )}
     </div>
   );
 };
 const Div1 = styled.div`
-  background-color: #f0e6ef;
-  margin-top: 200px;
-`;
-
-const Container = styled.div`
+  margin-top: 500px;
   max-width: 1250px;
   margin: 30px auto 30px;
-  padding: 0 !important;
+  padding: 20 !important;
   width: 90%;
   background-color: #fff;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.h1`
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11pt;
+  color: #aaa;
+  display: flex;
+  justify-content: center;
 `;
 
 const PicBack = styled.div`
@@ -88,20 +101,12 @@ const PhotoDiv = styled.div`
 `;
 
 const Img = styled.img`
-  /* background-image: url("https://res.cloudinary.com/drdbexqbf/image/upload/v1639065686/samples/Mypicture/no-user-image-icon-27_iukhui.png"); */
   width: 200px;
   height: 200px;
-  margin-top: -120px;
+  margin-top: -100px;
   border-radius: 100px;
   border: 4px solid #fff;
   background-size: cover;
-`;
-
-const Div = styled.div`
-  margin-top: 25px;
-  text-align: center;
-  padding-bottom: 20px;
-  font-family: "Montserrat", sans-serif;
 `;
 
 const Info = styled.div`
@@ -138,6 +143,7 @@ const Biodiv = styled.div`
   font-size: 10pt;
   color: #bbb;
 `;
+
 const Bio = styled.p`
   text-align: center;
   margin-top: 25px;
@@ -148,4 +154,11 @@ const Bio = styled.p`
   padding-bottom: 25px;
   border-bottom: 1px solid #ededed;
 `;
+
+const FriendList = styled.h1`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default UserDetail;

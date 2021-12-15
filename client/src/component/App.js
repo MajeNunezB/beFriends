@@ -30,11 +30,10 @@ const App = () => {
                 <EditProfile />
               </Route>
               <Route path="/user/profile">
-                {/* <Profile /> */}
                 {currentUser ? <Profile /> : <Redirect to="/" />}
               </Route>
               <Route path="/api/getUser/:id">
-                <UserDetail />
+                {currentUser ? <UserDetail /> : <Redirect to="/" />}
               </Route>
             </Switch>
           </BlueBox>

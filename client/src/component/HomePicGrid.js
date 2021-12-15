@@ -23,6 +23,8 @@ const HomePicGrid = ({ user, id }) => {
   const addFriendRequest = () => {
     //params to get the current user and its friends
     const params = {
+      currentUserId: currentUser._id,
+
       email: currentUser.email,
       friendId: user["_id"],
     };

@@ -3,6 +3,7 @@ import UsersContext from "./UsersContext";
 import { useParams } from "react-router";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Friends = ({ friend }) => {
   const { status, currentUser } = useContext(UsersContext);
@@ -22,13 +23,22 @@ const Friends = ({ friend }) => {
 
   //   console.log(oneUser);
 
+  let history = useHistory();
+  const handleDetail = () => {
+    history.push(`/api/getUser/${friend}`);
+  };
+
   if (status === "loading") {
     return "loading...";
   }
   return (
     <>
       {oneUser && (
-        <DivFriends>
+        <DivFriends
+          onClick={() => {
+            handleDetail();
+          }}
+        >
           <Img src={oneUser.avatarUrl} />
           <Name>{oneUser.name}</Name>
         </DivFriends>
@@ -37,8 +47,9 @@ const Friends = ({ friend }) => {
   );
 };
 
-const DivFriends = styled(Link)`
-  text-decoration: none;
+const DivFriends = styled.button`
+  border: none;
+  background-color: transparent;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;

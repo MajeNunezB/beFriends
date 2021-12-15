@@ -10,8 +10,7 @@ const options = {
 
 const HandlerPicture = async (req, res) => {
   const { email } = req.params;
-  console.log(req.body);
-  console.log(req.params);
+
   const { url } = req.body;
 
   const client = new MongoClient(MONGO_URI, options);
@@ -34,7 +33,7 @@ const HandlerPicture = async (req, res) => {
 
     //taking the current user info updated
     currentUser = await db.collection("users").findOne({ email: email });
-    console.log(occupation);
+
     res.status(200).json({ status: 200, currentUser: currentUser });
 
     client.close();

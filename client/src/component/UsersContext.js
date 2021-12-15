@@ -8,7 +8,7 @@ export const UsersProvider = ({ children }) => {
   const [usersData, setUsersData] = useState(null);
   const [status, setStatus] = useState("loading");
   const [currentUser, setCurrentUser] = useState(null);
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   const [refresh, setRefresh] = useState(false);
 
   // set user data to currentUser to fetch the info of one user
@@ -52,6 +52,7 @@ export const UsersProvider = ({ children }) => {
         setCurrentUser,
         refresh,
         setRefresh,
+        isAuthenticated,
       }}
     >
       {children}

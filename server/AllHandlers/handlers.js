@@ -41,7 +41,7 @@ const getUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+
   const client = new MongoClient(MONGO_URI, options);
 
   try {
@@ -53,7 +53,7 @@ const getUserById = async (req, res) => {
 
     //find user _id
     let user = await db.collection("users").findOne({ _id: id });
-    console.log(user);
+
     if (user) {
       res.status(200).json({ status: 200, message: "User found", data: user });
     }
@@ -82,7 +82,7 @@ const getUserByEmail = async (req, res) => {
 
     const db = client.db("beFriends");
     let user = await db.collection("users").findOne({ email: email });
-    console.log(user);
+
     res.status(200).json({ status: 200, message: "User found", data: user });
 
     client.close();
@@ -165,7 +165,7 @@ const addUserInfo = async (req, res) => {
   const { email } = req.params;
 
   const { name, city, age, address, occupation, bio, language } = req.body;
-  console.log(req.body);
+
   const client = new MongoClient(MONGO_URI, options);
 
   try {

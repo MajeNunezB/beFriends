@@ -15,13 +15,6 @@ const sendFriendRequest = async (req, res) => {
   //getting current user and friendId
   const { currentUserId, email, friendId } = req.query;
 
-  console.log("email received : ", email);
-  console.log("friendId received : ", friendId);
-
-  // Step 1: Get the id of new friend from request
-  // Step 2: Add the friend id into currentUser's friend's array
-  // Step 3: return success response/error
-
   const client = new MongoClient(MONGO_URI, options);
 
   try {
@@ -29,12 +22,12 @@ const sendFriendRequest = async (req, res) => {
 
     const db = client.db("beFriends");
 
-    //getting into the current user data
-    // let wholeUser = await db.collection("users").findOne({ email: email });
+    //getting into the  data
     let wholeFriendId = await db.collection("users").findOne({ _id: friendId });
+    // let wholeUser = await db.collection("users").findOne({ email: email });
 
     //adding a pending request to the user data
-    const { pendingFriends: existingPendingFriends = [] } = wholeFriendId; //wholeUser
+    const { pendingFriends: existingPendingFriends = [] } = wholeFriendId;
 
     // const isExists = existingPendingFriends.includes(friendId);
     const isExists = existingPendingFriends.includes(currentUserId);
@@ -44,10 +37,8 @@ const sendFriendRequest = async (req, res) => {
       const result = await db.collection("users").updateOne(
         { _id: friendId },
         // { email: email },
-        { $set: { pendingFriends: [...existingPendingFriends, currentUserId] } } //friendId
+        { $set: { pendingFriends: [...existingPendingFriends, currentUserId] } }
       );
-
-      console.log("did the new friend id get added? ", result);
 
       //if the friendId is pending then status(200)
       res.status(200).json({
@@ -72,15 +63,9 @@ const sendFriendRequest = async (req, res) => {
 
 //harry accepts the friend request of id = 6
 const confirmFriendRequest = async (req, res) => {
-  //email=currentUser    confirmationFriendId= pending request waiting to be confirmed
-  const { confirmationFriendId, email } = req.query;
+  //email=currentUser    friendId= pending request waiting to be confirmed
 
-  // console.log("email received : ", email);
-  // console.log("confirmationFriendId received : ", confirmationFriendId);
-
-  // Step 1: Figure out how many pending requests currentUser has
-  // Step 2: match the confirmation friend request id with pending requests of current user
-  // Step 3: if you find confirmation friend id in pending request then move that to friends array in order to confirm the friend
+  const { friendId, email } = req.query;
 
   const client = new MongoClient(MONGO_URI, options);
 
@@ -100,14 +85,13 @@ const confirmFriendRequest = async (req, res) => {
     } = wholeUser;
 
     //check if confirmation friend id exists in the pending requests of user
-    const isPendingRequestExists =
-      existingPendingFriends.includes(confirmationFriendId);
+    const isPendingRequestExists = existingPendingFriends.includes(friendId);
 
-    //if it exists, then get rid of it from pending requests and add it to friends array
+    //if it exists, then deleted it from pending requests and add it to friends array
     if (isPendingRequestExists) {
-      //by filtering confirmation friend Id from pending requests array, to get a new list of pending requests
+      // filtering confirmation friend Id from pending requests array, to get the new list of pending requests
       const listWithoutConfirmationFriendId = existingPendingFriends.filter(
-        (pendingRequest) => pendingRequest !== confirmationFriendId
+        (pendingRequest) => pendingRequest !== friendId
       );
 
       const result = await db.collection("users").updateOne(
@@ -115,7 +99,7 @@ const confirmFriendRequest = async (req, res) => {
         {
           $set: {
             pendingFriends: listWithoutConfirmationFriendId,
-            friends: [...existingFriends, confirmationFriendId],
+            friends: [...existingFriends, friendId],
           },
         }
       );

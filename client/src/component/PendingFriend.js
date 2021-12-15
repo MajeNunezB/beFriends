@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import UsersContext from "./UsersContext";
-import { useParams } from "react-router";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ConfirmButton from "./ConfirmButton";
@@ -9,6 +8,7 @@ import { useHistory } from "react-router-dom";
 const PendingFriend = ({ friendPending }) => {
   const [oneUser, setOneUser] = useState(null);
   const { currentUser, status } = useContext(UsersContext);
+  const { refresh, setRefresh } = useContext(UsersContext);
   const history = useHistory();
 
   console.log(friendPending);
@@ -25,13 +25,12 @@ const PendingFriend = ({ friendPending }) => {
         console.log("error", err);
       });
   }, []);
-  console.log(oneUser);
 
   //friend confirmation Button
   const handleConfirmFriend = () => {
     const params = {
       email: currentUser.email,
-      confirmationFriendId: friendPending,
+      friendId: friendPending,
     };
 
     const query = Object.keys(params)
@@ -45,9 +44,11 @@ const PendingFriend = ({ friendPending }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         alert(data.message);
         window.location.reload(false);
+
+        // setRefresh(!refresh);
       })
       .catch((error) => {
         console.log(error);

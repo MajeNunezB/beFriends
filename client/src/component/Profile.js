@@ -12,14 +12,13 @@ const Profile = () => {
   const [pendingList, setPendingList] = useState(null);
 
   /// get the list of pendingRequests for current user to confirm query=friends/request?email=harry@gmail.com
-  //api/friends/1/getPendingFriends
+
   useEffect(() => {
     if (currentUser) {
-      console.log("is it calling after confirming a friend?");
       fetch(`/api/friends/request?email=${currentUser.email}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log("list - ", data);
+          console.log(data);
           setPendingList(data.data);
         })
         .catch((err) => {
@@ -27,8 +26,6 @@ const Profile = () => {
         });
     }
   }, [currentUser]);
-
-  console.log(pendingList);
 
   if (status === "loading") {
     return "loading...";

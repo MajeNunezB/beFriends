@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import UsersContext from "./UsersContext";
-import { useParams } from "react-router";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 const Friends = ({ friend }) => {

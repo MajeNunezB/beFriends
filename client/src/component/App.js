@@ -11,7 +11,7 @@ import UserDetail from "./UserDetail";
 import Friends from "./Friends";
 
 const App = () => {
-  const { currentUser } = useContext(UsersContext);
+  const { isAuthenticated } = useContext(UsersContext);
   return (
     <>
       <OrangeBox>
@@ -30,10 +30,11 @@ const App = () => {
                 <EditProfile />
               </Route>
               <Route path="/user/profile">
-                {currentUser ? <Profile /> : <Redirect to="/" />}
+                {/* {isAuthenticated ? <Profile /> : <Redirect to="/" />} */}
+                <Profile />
               </Route>
               <Route path="/api/getUser/:id">
-                {currentUser ? <UserDetail /> : <Redirect to="/" />}
+                {isAuthenticated ? <UserDetail /> : <Redirect to="/" />}
               </Route>
             </Switch>
           </BlueBox>

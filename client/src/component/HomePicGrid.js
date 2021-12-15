@@ -24,12 +24,11 @@ const HomePicGrid = ({ user, id }) => {
     //params to get the current user and its friends
     const params = {
       currentUserId: currentUser._id,
-
       email: currentUser.email,
       friendId: user["_id"],
     };
 
-    //creating a query: email=rony@gmail.com&friendId=5  ---> encodeUriComponent helps to read @
+    //making the  query: email=rony@gmail.com&friendId=5  ---> encodeUriComponent helps to read @
     const query = Object.keys(params)
       .map(
         (key) => encodeURIComponent(key) + "=" + encodeURIComponent(params[key])
@@ -41,7 +40,6 @@ const HomePicGrid = ({ user, id }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         alert(data.message);
       })
       .catch((error) => {

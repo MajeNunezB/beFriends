@@ -12,6 +12,8 @@ const Home = () => {
     return "loading...";
   }
 
+  console.log("current user in Home -", currentUser);
+
   //If the current user is present in usersData then filter it out
   // let updatedUsers = [];
   // if (currentUser) {

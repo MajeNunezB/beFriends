@@ -14,6 +14,8 @@ const options = {
 const sendFriendRequest = async (req, res) => {
   //getting current user and friendId
   const { currentUserId, email, friendId } = req.query;
+  //laura is able to send multiple friend requests Nate bc nate has not accepted
+  //here currentUserId: laura's, friendId: nate's
 
   const client = new MongoClient(MONGO_URI, options);
 
@@ -27,17 +29,24 @@ const sendFriendRequest = async (req, res) => {
     // let wholeUser = await db.collection("users").findOne({ email: email });
 
     //adding a pending request to the user data
-    const { pendingFriends: existingPendingFriends = [] } = wholeFriendId;
+    const {
+      pendingFriends: existingPendingFriends = [],
+      friends: existingFriends = [],
+    } = wholeFriendId; //wholeFriendId
 
     // const isExists = existingPendingFriends.includes(friendId);
-    const isExists = existingPendingFriends.includes(currentUserId);
+    //frinedId shoudl not be existing in pendingRequest
+    //currentUserId should not be be part friends array
+    const isExists =
+      existingPendingFriends.includes(currentUserId) ||
+      existingFriends.includes(currentUserId);
 
     if (!isExists) {
       //updating the current user pending list with the new friendId
       const result = await db.collection("users").updateOne(
         { _id: friendId },
         // { email: email },
-        { $set: { pendingFriends: [...existingPendingFriends, currentUserId] } }
+        { $set: { pendingFriends: [...existingPendingFriends, currentUserId] } } //currentUserId
       );
 
       //if the friendId is pending then status(200)

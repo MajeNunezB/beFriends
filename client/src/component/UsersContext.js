@@ -31,19 +31,22 @@ export const UsersProvider = ({ children }) => {
 
   //fetching all users data based on matching interests
   useEffect(() => {
-    if (user) {
-      fetch(`/api/users?email=${user?.email}`)
-        .then((res) => res.json())
-        .then((user) => {
-          setUsersData(user.data);
-          setStatus("idle");
-        })
-        .catch((err) => {
-          setStatus("error");
-        });
+    let url = "";
+    if (isAuthenticated) {
+      url = `/api/users?email=${user?.email}`;
+    } else {
+      url = `/api/users`;
     }
+    fetch(url) //
+      .then((res) => res.json())
+      .then((user) => {
+        setUsersData(user.data);
+        setStatus("idle");
+      })
+      .catch((err) => {
+        setStatus("error");
+      });
   }, [user]);
-
   return (
     <UsersContext.Provider
       value={{

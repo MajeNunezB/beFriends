@@ -25,3 +25,5 @@ const Auth0ProviderWithHistory = ({ children }) => {
 };
 
 export default Auth0ProviderWithHistory;
+
+//Auth0 the set is coming from https://auth0.com/docs/quickstart/spa/react

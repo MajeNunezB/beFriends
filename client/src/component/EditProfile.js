@@ -6,18 +6,15 @@ import UsersContext from "./UsersContext";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const EditProfile = () => {
-  const {
-    currentUser,
-    setCurrentUser,
-    setStatus,
-    status,
-    refresh,
-    setRefresh,
-  } = useContext(UsersContext);
+  const { currentUser, setCurrentUser, setStatus, status } =
+    useContext(UsersContext);
+
+  const [hobbies, setHobbies] = useState([]);
   const [language, setLanguage] = useState(null);
-  const [hobbies, setHobbies] = useState(null);
   const [occupation, setOccupation] = useState(null);
+
   const [errorMessage, setErrorMessage] = useState("");
+
   const history = useHistory();
   const { user } = useAuth0();
 
@@ -27,32 +24,29 @@ const EditProfile = () => {
     age: currentUser?.age,
     address: currentUser?.address,
     occupation: currentUser?.occupation,
-    // picture: "",
     bio: currentUser?.bio,
     language: currentUser?.language,
+    hobbies: currentUser?.hobbies,
   });
 
-  //fetch to get list of different languages in quebec
+  //fetch to get list of different hobbies in quebec
   useEffect(() => {
     fetch("/hobbies")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         setHobbies(data.data);
-
-        setStatus("idle");
       })
       .catch((err) => {
-        setStatus("error");
+        console.log("error");
       });
   }, []);
-
-  //fetch to get list of different languages in quebec
+  console.log(hobbies);
+  //fetch to get list of different occupation in quebec
   useEffect(() => {
     fetch("/api/occupation")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setOccupation(data.data);
         setStatus("idle");
       })
@@ -67,7 +61,6 @@ const EditProfile = () => {
       .then((res) => res.json())
       .then((data) => {
         setLanguage(data.data);
-
         setStatus("idle");
       })
       .catch((err) => {
@@ -78,7 +71,6 @@ const EditProfile = () => {
   //fetch to patch the data
   const handleSubmit = (ev) => {
     ev.preventDefault();
-
     fetch(`/api/addInfo/${user.email}`, {
       method: "POST",
       headers: {
@@ -89,9 +81,7 @@ const EditProfile = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          // window.localStorage.setItem("reservation", JSON.stringify(data.data));
           setCurrentUser(data.currentUser);
-          // setRefresh(!refresh);
           history.push("/user/profile");
           setStatus("idle");
         } else if (data.status === 404) {
@@ -102,6 +92,7 @@ const EditProfile = () => {
       });
   };
 
+  //handle changes
   const handleChange = (ev) => {
     setUserInfo({
       ...userInfo,
@@ -214,6 +205,27 @@ const EditProfile = () => {
               </div>
             </Label>
           </Div>
+          <Hobbie>
+            <label>
+              <Span>Enter your favorite Hobby</Span>
+              <Select
+                name="hobbies"
+                onChange={(ev) => {
+                  handleChange(ev);
+                }}
+              >
+                <option value="default">Choose your hobby</option>
+                {hobbies &&
+                  hobbies?.map((ele, index) => {
+                    return (
+                      <option value={ele.Hobbies} key={index}>
+                        {ele.Hobbies}
+                      </option>
+                    );
+                  })}
+              </Select>
+            </label>
+          </Hobbie>
           <Button type="submit">Save</Button>
           {errorMessage && <P> {errorMessage} </P>}
         </Form>
@@ -323,4 +335,8 @@ const P = styled.p`
   text-align: center;
 `;
 
+const Hobbie = styled.div`
+  margin-bottom: 20px;
+  margin-top: 10px;
+`;
 export default EditProfile;

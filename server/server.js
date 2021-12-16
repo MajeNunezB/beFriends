@@ -5,10 +5,10 @@ const morgan = require("morgan");
 const PORT = 8000;
 // Important Handlers
 const { getLanguage } = require("./AllHandlers/handlerLanguage");
-const { HandlerPicture } = require("./AllHandlers/HandlerPicture");
+const { handlerPicture } = require("./AllHandlers/handlerPicture");
 const { getOccupation } = require("./AllHandlers/handleOccupation");
-const { getReligion } = require("./AllHandlers/HandleReligion");
-const { getHobbies } = require("./AllHandlers/HandleHobbies");
+const { getReligion } = require("./AllHandlers/handleReligion");
+const { getHobbies } = require("./AllHandlers/handleHobbies");
 
 const {
   sendFriendRequest,
@@ -66,7 +66,7 @@ app.get("/religion", getReligion);
 //handle hobbies
 app.get("/hobbies", getHobbies);
 // handle pictures
-app.post("/user/picture/:email", HandlerPicture);
+app.post("/user/picture/:email", handlerPicture);
 
 //Handle friend request
 app.put("/api/friends/add", sendFriendRequest);

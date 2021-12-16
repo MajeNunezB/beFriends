@@ -17,7 +17,6 @@ const UserDetail = () => {
     fetch(`/api/getUser/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setOneUser(data.data);
       })
       .catch((err) => {
@@ -48,12 +47,17 @@ const UserDetail = () => {
               <Bio>{`I am ${oneUser?.age} old, I speake ${oneUser?.language}, I work in ${oneUser?.occupation} and my hobbies are ...`}</Bio>
             </Biodiv>
             <Title>{`${oneUser.name} is friend with:`}</Title>
-            <FriendList>
-              {currentUser &&
-                currentUser.friends.map((friend) => {
-                  return <Friends key={friend} friend={friend} />;
-                })}
-            </FriendList>
+
+            {
+              // Do not show friendList for other users, only show for current user
+
+              <FriendList>
+                {oneUser &&
+                  oneUser.friends.map((friend) => {
+                    return <Friends key={friend} friend={friend} />;
+                  })}
+              </FriendList>
+            }
           </Div1>
         </>
       )}

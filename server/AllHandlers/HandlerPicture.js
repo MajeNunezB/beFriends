@@ -8,7 +8,7 @@ const options = {
   useUnifiedTopology: true,
 };
 
-const HandlerPicture = async (req, res) => {
+const handlerPicture = async (req, res) => {
   const { email } = req.params;
 
   const { url } = req.body;
@@ -42,4 +42,4 @@ const HandlerPicture = async (req, res) => {
     res.status(500).json({ status: 500, data: err.message });
   }
 };
-module.exports = { HandlerPicture };
+module.exports = { handlerPicture };

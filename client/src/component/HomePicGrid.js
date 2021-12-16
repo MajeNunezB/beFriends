@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import UsersContext from "./UsersContext";
 import { useContext } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 const HomePicGrid = ({ user, id }) => {

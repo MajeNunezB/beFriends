@@ -14,15 +14,34 @@ const options = {
 //////////////////////////////
 const getUsers = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
+  const { email } = req.query;
 
   try {
     await client.connect();
 
     // connect to the database
     const db = client.db("beFriends");
+    let currentUser = await db.collection("users").findOne({ email: email });
+    //We need to add a filter based on hobbies, language, city, occupation, age
+    //find users https://docs.mongodb.com/manual/reference/method/db.collection.find/
 
-    //find users
-    const users = await db.collection("users").find({}).toArray();
+    let users = [];
+    if (email) {
+      users = await db
+        .collection("users")
+        .find({
+          $or: [
+            { city: currentUser.city },
+            { language: currentUser.language },
+            { hobbies: currentUser.hobbies },
+            { occupation: currentUser.occupation },
+          ],
+        })
+        .collation({ locale: "en", strength: 2 })
+        .toArray();
+    } else {
+      users = await db.collection("users").find().toArray();
+    }
 
     res.status(200).json({ status: 200, message: "Success!", data: users });
 
@@ -164,7 +183,8 @@ const getNewUser = async (req, res) => {
 const addUserInfo = async (req, res) => {
   const { email } = req.params;
 
-  const { name, city, age, address, occupation, bio, language } = req.body;
+  const { name, city, age, address, occupation, bio, language, hobbies } =
+    req.body;
 
   const client = new MongoClient(MONGO_URI, options);
 
@@ -181,7 +201,8 @@ const addUserInfo = async (req, res) => {
       !address ||
       !bio ||
       !language ||
-      !occupation
+      !occupation ||
+      !hobbies
     ) {
       return res
         .status(400)

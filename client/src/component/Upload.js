@@ -10,7 +10,7 @@ const Upload = () => {
   const { user } = useAuth0();
   console.log(user, currentUser);
 
-  //function to send image to cloudinary and transform it into a URL
+  //function to send image to cloudinary and transform it into a URL -https://www.youtube.com/watch?v=uP568vOaBbQ&t=469s
   const postDetails = (ev) => {
     ev.preventDefault();
     const data = new FormData();

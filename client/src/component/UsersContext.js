@@ -29,18 +29,20 @@ export const UsersProvider = ({ children }) => {
     }
   }, [user]);
 
-  //fetching all users data
+  //fetching all users data based on matching interests
   useEffect(() => {
-    fetch("/api/users")
-      .then((res) => res.json())
-      .then((user) => {
-        setUsersData(user.data);
-        setStatus("idle");
-      })
-      .catch((err) => {
-        setStatus("error");
-      });
-  }, []);
+    if (user) {
+      fetch(`/api/users?email=${user?.email}`)
+        .then((res) => res.json())
+        .then((user) => {
+          setUsersData(user.data);
+          setStatus("idle");
+        })
+        .catch((err) => {
+          setStatus("error");
+        });
+    }
+  }, [user]);
 
   return (
     <UsersContext.Provider

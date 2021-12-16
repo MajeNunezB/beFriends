@@ -3,7 +3,6 @@ import styled from "styled-components";
 import UsersContext from "./UsersContext";
 
 const ConfirmButton = ({ friendPending, handleConfirmFriend }) => {
-  console.log("pending friend in confirm button - ", friendPending);
   const { refresh, setRefresh } = useContext(UsersContext);
 
   return (

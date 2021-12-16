@@ -79,6 +79,7 @@ const DivFriends = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   padding: 10px;
+  margin-top: 25px;
 `;
 
 const Img = styled.img`
@@ -91,7 +92,9 @@ const Img = styled.img`
 `;
 
 const Name = styled.p`
-  width: 100px;
+  width: 150px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 14px;
   color: #bbb;
   text-align: center;

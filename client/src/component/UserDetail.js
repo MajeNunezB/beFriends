@@ -203,7 +203,7 @@ const FriendList = styled.h1`
 
 const Button = styled.button`
   align-items: center;
-  margin-left: 470px;
+  margin-left: 520px;
   margin-top: 40px;
   margin-bottom: 60px;
   @extend .center-content;

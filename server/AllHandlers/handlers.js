@@ -22,9 +22,9 @@ const getUsers = async (req, res) => {
     // connect to the database
     const db = client.db("beFriends");
     let currentUser = await db.collection("users").findOne({ email: email });
-    //We need to add a filter based on hobbies, language, city, occupation, age
-    //find users https://docs.mongodb.com/manual/reference/method/db.collection.find/
-
+    //i need to add a filter based on hobbies, language, city, occupation, age
+    //https://docs.mongodb.com/manual/reference/method/db.collection.find/
+    //http://stackoverflow.com/questions/1863399/mongodb
     let users = [];
     if (email) {
       users = await db

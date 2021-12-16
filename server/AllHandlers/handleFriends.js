@@ -8,13 +8,11 @@ const options = {
   useUnifiedTopology: true,
 };
 
-// PATCH. requires the ids of 2 people to make them friends
-// ids should be sent along as an array called newFriends in the body
 // id = 6 sends a friend request to harry
 const sendFriendRequest = async (req, res) => {
   //getting current user and friendId
   const { currentUserId, email, friendId } = req.query;
-  //laura is able to send multiple friend requests Nate bc nate has not accepted
+
   //here currentUserId: laura's, friendId: nate's
 
   const client = new MongoClient(MONGO_URI, options);
@@ -26,17 +24,13 @@ const sendFriendRequest = async (req, res) => {
 
     //getting into the  data
     let wholeFriendId = await db.collection("users").findOne({ _id: friendId });
-    // let wholeUser = await db.collection("users").findOne({ email: email });
 
     //adding a pending request to the user data
     const {
       pendingFriends: existingPendingFriends = [],
       friends: existingFriends = [],
-    } = wholeFriendId; //wholeFriendId
+    } = wholeFriendId;
 
-    // const isExists = existingPendingFriends.includes(friendId);
-    //frinedId shoudl not be existing in pendingRequest
-    //currentUserId should not be be part friends array
     const isExists =
       existingPendingFriends.includes(currentUserId) ||
       existingFriends.includes(currentUserId);
@@ -45,8 +39,7 @@ const sendFriendRequest = async (req, res) => {
       //updating the current user pending list with the new friendId
       const result = await db.collection("users").updateOne(
         { _id: friendId },
-        // { email: email },
-        { $set: { pendingFriends: [...existingPendingFriends, currentUserId] } } //currentUserId
+        { $set: { pendingFriends: [...existingPendingFriends, currentUserId] } } //
       );
 
       //if the friendId is pending then status(200)
@@ -87,16 +80,16 @@ const confirmFriendRequest = async (req, res) => {
     let wholeUser = await db.collection("users").findOne({ email: email });
 
     //I am using JS Object destructuring to extract pendingFriends and friends array from currentUser
-    //If pendingFriends and friends array are not present in a user then assign it with a default value []
+    //If pendingFriends and friends array are not present in a user the default value []
     const {
       pendingFriends: existingPendingFriends = [],
       friends: existingFriends = [],
     } = wholeUser;
 
-    //check if confirmation friend id exists in the pending requests of user
+    //checking if confirmation friend id exists in the pending requests of user
     const isPendingRequestExists = existingPendingFriends.includes(friendId);
 
-    //if it exists, then deleted it from pending requests and add it to friends array
+    //if it exists, deleted it from pending requests and add it to friends array
     if (isPendingRequestExists) {
       // filtering confirmation friend Id from pending requests array, to get the new list of pending requests
       const listWithoutConfirmationFriendId = existingPendingFriends.filter(
@@ -118,7 +111,6 @@ const confirmFriendRequest = async (req, res) => {
         message: "Friend successfully confirmed",
       });
     } else {
-      //If user does not have  a pending request for requested confirmation id then we should inform frontend
       res.status(500).json({
         status: 500,
         message: "Friend does not exist",
@@ -145,14 +137,6 @@ const getPendingFriendsList = async (req, res) => {
     const db = client.db("beFriends");
     let wholeUser = await db.collection("users").findOne({ email: email });
     const { pendingFriends } = wholeUser;
-    // console.log( pendingFriends);
-    // const listOfFriendsRequest = await db
-    //   .collection("users")
-    //   .find({ _id: { $in: pendingFriends } });
-
-    // console.log( listOfFriendsRequest);
-
-    //SQL: select users from table where id in [1,2,3]
 
     res
       .status(200)

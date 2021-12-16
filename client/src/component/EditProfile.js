@@ -34,7 +34,6 @@ const EditProfile = () => {
     fetch("/hobbies")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setHobbies(data.data);
       })
       .catch((err) => {

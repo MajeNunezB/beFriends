@@ -11,14 +11,12 @@ const PendingFriend = ({ friendPending }) => {
   const { refresh, setRefresh } = useContext(UsersContext);
   const history = useHistory();
 
-  console.log(friendPending);
-  //fetch to get the pendding user data
+  //fetch to get the pending user data
 
   React.useEffect(() => {
     fetch(`/api/getUser/${friendPending}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setOneUser(data.data);
       })
       .catch((err) => {
@@ -44,7 +42,6 @@ const PendingFriend = ({ friendPending }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data);
         alert(data.message);
         window.location.reload(false);
 

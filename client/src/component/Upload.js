@@ -8,7 +8,6 @@ const Upload = () => {
   const { currentUser, status, setCurrentUser } = useContext(UsersContext);
   const [url, setUrl] = useState(null);
   const { user } = useAuth0();
-  console.log(user, currentUser);
 
   //function to send image to cloudinary and transform it into a URL -https://www.youtube.com/watch?v=uP568vOaBbQ&t=469s
   const postDetails = (ev) => {
@@ -27,7 +26,6 @@ const Upload = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data.url);
         setUrl(data.url);
         return fetch(`/user/picture/${user.email}`, {
           method: "POST",
@@ -40,7 +38,6 @@ const Upload = () => {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setCurrentUser(data.currentUser);
       })
       .catch((error) => {
@@ -61,7 +58,6 @@ const Upload = () => {
           type="file"
           onChange={(e) => {
             setImage1(e.target.files[0]);
-            console.log(e.target.files[0]);
           }}
         />
         <Button type="submit">submit</Button>

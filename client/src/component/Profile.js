@@ -18,7 +18,6 @@ const Profile = () => {
       fetch(`/api/friends/request?email=${currentUser.email}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setPendingList(data.data);
         })
         .catch((err) => {

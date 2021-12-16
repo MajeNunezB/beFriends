@@ -11,7 +11,6 @@ const UserDetail = () => {
   const [oneUser, setOneUser] = useState(null);
 
   const { id } = useParams();
-  console.log(id);
 
   React.useEffect(() => {
     fetch(`/api/getUser/${id}`)
@@ -23,8 +22,6 @@ const UserDetail = () => {
         setStatus("error");
       });
   }, []);
-
-  console.log(oneUser);
 
   const addFriendRequest = () => {
     //params to get the current user and its friends
@@ -73,7 +70,7 @@ const UserDetail = () => {
                 </Info>
                 <Biodiv>
                   <Bio>{oneUser?.bio}</Bio>
-                  <Bio>{`I am ${oneUser?.age} old, I speake ${oneUser?.language}, I work in ${oneUser?.occupation} and my hobbies are ...`}</Bio>
+                  <Bio>{`Hi!! My name is ${oneUser?.name}, I am ${oneUser?.age} old, my first language is ${oneUser?.language}, I am ${oneUser?.occupation} industry and my favorite hobby is ${oneUser?.hobbies} `}</Bio>
                 </Biodiv>
               </>
             ) : (
